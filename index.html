@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Monoton&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 1fr auto;
+      }
+
+      footer {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        -webkit-backdrop-filter: blur(30px);
+        backdrop-filter: blur(30px);
+        background: rgba(66, 66, 62, 0.226);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+          0 6px 6px rgba(0, 0, 0, 0.23);
+        border-radius: 25px;
+        border-radius: 15px 15px 0 0;
+      }
+
+      footer .thanks {
+        display: flex;
+        gap: 1rem;
+        align-items: baseline;
+        font-size: 0.5rem;
+      }
+
+      footer .thanks p {
+        color: #6025c3;
+        text-decoration: none;
+      }
+
+      footer .thanks ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0.3rem;
+        justify-content: center;
+        align-content: center;
+      }
+
+      footer .thanks ul li {
+        margin: 0;
+        list-style: none;
+      }
+
+      footer .thanks ul li a {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      footer .thanks ul li a:hover {
+        text-decoration-color: #6025c3;
+      }
+
+      footer .author {
+        display: flex;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.5rem;
+        align-items: baseline;
+        gap: 1rem;
+      }
+
+      footer .author a {
+        color: inherit;
+      }
+
+      footer .author a:hover {
+        text-decoration-color: #6025c3;
+      }
+
+      @media (min-width: 540px) {
+        footer {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SJGames</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <footer class="bottom-menu home">
+      <div class="thanks">
+        <p>Thanks to:</p>
+        <ul>
+          <li>
+            <a href="https://avatars.dicebear.com/">DiceBear</a>
+          </li>
+          <li>
+            <a href="https://firebase.google.com/">firebase</a>
+          </li>
+          <li>
+            <a href="https://www.vuemastery.com/">vueMastery</a>
+          </li>
+        </ul>
+      </div>
+      <div class="author">
+        <p>This games had been designed just to learn and fun.</p>
+        <a href="https://github.com/filok94/">My GitHub</a>
+        <p>Here is no licence</p>
+      </div>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

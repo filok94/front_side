@@ -1,0 +1,75 @@
+@mixin targetCircle($background) {
+    font-size: 0.8rem;
+    line-height: 4rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 100%;
+    background: $background;
+    color: $color-grey;
+    cursor: pointer;
+    box-shadow: $shadow-black;
+}
+
+@mixin blur-bcg() {
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+@mixin bcg-for-text($bcg) {
+    background: $bcg;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin going-away($toEnd, $from, $time) {
+    animation: going-away $time ease-in-out;
+    @keyframes going-away {
+        0% {
+            opacity: 1;
+            transform: translate(0);
+        }
+        50% {
+            opacity: 0;
+            transform: translateX($toEnd) translateY(-3rem);
+        }
+        51% {
+            opacity: 0;
+            transform: translateX($from) translateY(-3rem);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+@mixin right-wrong($color, $scale: 103%) {
+    transform: scale($scale);
+    p {
+        @include bcg-for-text($color);
+    }
+}
+
+@mixin primary-button() {
+    border-radius: $border-prime;
+    border: none;
+
+    font-family: $font;
+    font-size: 1.5rem;
+
+    padding: 1rem;
+
+    color: $color-white;
+    background: $gradient;
+    box-shadow: $shadow-black;
+
+    cursor: pointer;
+    &:hover {
+        transform: scale(100.5%);
+    }
+}
+
+@mixin game-card-top {
+    position: relative;
+    z-index: 2;
+    min-height: 6rem;
+}

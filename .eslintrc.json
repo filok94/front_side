@@ -1,0 +1,107 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"vue/setup-compiler-macros": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:vue/vue3-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:vue/base"
+	],
+	"parserOptions": {
+		"ecmaVersion": "latest",
+		"parser": "@typescript-eslint/parser",
+		"sourceType": "module"
+	},
+	"plugins": [
+		"vue",
+		"@typescript-eslint"
+	],
+	"rules": {
+		"vue/script-setup-uses-vars": "error",
+		"vue/no-setup-props-destructure": "off",
+		"vue/valid-attribute-name": "error",
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"double"
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"vue/multi-word-component-names": [
+			"error",
+			{
+				"ignores": []
+			}
+		],
+		"array-bracket-spacing": [
+			"warn",
+			"always"
+		],
+		"indent": [
+			"error",
+			"tab"
+		],
+		"no-multi-spaces": "error",
+		"curly": "warn",
+		"object-curly-spacing": [
+			"warn",
+			"always"
+		],
+		"space-before-function-paren": "warn",
+		"arrow-spacing": "warn",
+		"object-curly-newline": [
+			"warn",
+			{
+				"ObjectExpression": "always",
+				"ObjectPattern": {
+					"multiline": true
+				},
+				"ImportDeclaration": "never",
+				"ExportDeclaration": {
+					"multiline": true,
+					"minProperties": 3
+				}
+			}
+		],
+		"template-curly-spacing": [
+			"warn",
+			"always"
+		],
+		"brace-style": [
+			"warn",
+			"stroustrup"
+		],
+		"no-multiple-empty-lines": [
+			"warn",
+			{
+				"max": 1,
+				"maxEOF": 0
+			}
+		],
+		"no-whitespace-before-property": [
+			"warn"
+		],
+		"eol-last": [
+			"warn",
+			"always"
+		],
+		"comma-dangle": [
+			"warn",
+			{
+				"arrays": "only-multiline",
+				"objects": "only-multiline",
+				"imports": "never",
+				"exports": "never",
+				"functions": "never"
+			}
+		]
+	}
+}
