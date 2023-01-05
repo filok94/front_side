@@ -49,6 +49,7 @@ const titles = [ {
       <oneCreateGame
         v-if="activeModalEditor === 1"
         :questions-number="8"
+        @game-done="closeModal"
       />
 
       <oneCreatePerson

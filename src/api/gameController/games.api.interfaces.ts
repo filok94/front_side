@@ -7,7 +7,7 @@ export const GAME_URLS = {
 	get_questions: (id: string) => `${ GAMES_CONTROLLER }/${ id }`,
 	calculate: (id: string) => `${ GAMES_CONTROLLER }/${ id }/calculate`,
 	get_results: (id: string) => `${ GAMES_CONTROLLER }/${ id }/results`,
-	post_create_game: `${ GAMES_CONTROLLER }/create`
+	post_create_game: `admin/${ GAMES_CONTROLLER }/create`
 } as const;
 // eslint-disable-next-line no-redeclare
 export type GAME_URLS = typeof GAME_URLS[keyof typeof GAME_URLS];
@@ -57,4 +57,20 @@ export interface IResponseGetResult {
 	person: IPerson;
 	game_id: string;
 	test_data: ITestData[];
+}
+
+export interface IGameInfo {
+	title: string,
+	link: string,
+	description: string,
+	test_data: {
+		question: string,
+		answers: string[]
+		right_answer: number,
+		index: number
+	}[]
+}
+
+export interface IPostCreateGame extends IGameInfo {
+	persons: string[]
 }

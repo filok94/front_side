@@ -5,7 +5,8 @@ import { GAME_URLS,
 	IPostCalculateAnswers,
 	IResponseCalculateAnswers,
 	IResponseGetResult,
-	IGetAllGamesResponse } from "./games.api.interfaces";
+	IGetAllGamesResponse, 
+	IPostCreateGame } from "./games.api.interfaces";
 
 export async function getAllGames (): Promise<
 	IGetAllGamesResponse[] | undefined
@@ -78,21 +79,10 @@ export const getResultData = async (params: {
 	}
 };
 
-export const postCreateGame = async (data: {
-	title: string,
-	description: string,
-	link: string,
-	test_data: {
-		question: string,
-		answers: string[],
-		right_answer: number,
-		index: number
-	}[],
-	persons: string[]
-}): Promise<IResponseGetResult | undefined> => {
+export const postCreateGame = async (data: IPostCreateGame): Promise<IResponseGetResult | undefined> => {
 	try {
 		const response = await globalInstance.post(GAME_URLS.post_create_game, {
-			data
+			...data
 		});
 		if (!response) {
 			throw new Error(`create game response is ${ response }`);

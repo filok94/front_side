@@ -102,6 +102,7 @@
 				"exports": "never",
 				"functions": "never"
 			}
-		]
+		],
+		"space-infix-ops": ["warn", { "int32Hint": false }]
 	}
 }

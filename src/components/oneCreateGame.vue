@@ -2,10 +2,18 @@
 import { reactive, onMounted, ref, computed } from "vue";
 import vInput from "./common/vInput.vue";
 import vButton from "./common/vButton.vue";
+import onePickPerson from "./OnePickPerson.vue";
+import { useAdmin } from "../stores/admin_store";
 
 const props = defineProps<{
     questionsNumber: number
 }>();
+const emit = defineEmits<{
+  (ev: "gameDone", isDone: boolean): void
+}>();
+
+const gameDone = (ev: boolean) => emit("gameDone", ev);
+const adminStore = useAdmin();
 
 const steps = reactive([
 	{
@@ -28,20 +36,16 @@ const steps = reactive([
 	}
 ]);
 
+const isRightValues = reactive<number[]>(Array(9).fill(0));
+
 const currentStep = ref(0);
 
 const jumpToStep = (stepNumber: number) => {
 	currentStep.value = stepNumber;
 };
-const allInputsAreFilled = computed(() => {
-	let allValues: string[] = [];
-	steps.forEach(step => step.inputs.forEach(e => allValues.push(e.value)));
-
-	return allValues.filter(e => e === "").length === 0;
-});
 
 onMounted(() => {
-	for (let i=0; i < props.questionsNumber; i++) {
+	for (let i = 0; i < props.questionsNumber; i++) {
 		steps.push({
 			title: `Write down question ${ i + 1 } and it's answers`,
 			stepShortName: `${ i + 1 }`,
@@ -70,9 +74,41 @@ onMounted(() => {
 		});
 	}
 });
+
+const allInputsAreFilled = computed(() => {
+	let allValues: string[] = [];
+	steps.forEach(step => step.inputs.forEach(e => allValues.push(e.value)));
+
+	return allValues.filter(e => e === "").length === 0 &&
+    isRightValues.length === steps.length &&
+    isRightValues.slice(1).filter(e => e === undefined).length === 0;
+});
+
+const createGamesisActive = ref(true);
+const goToPersonPick = () => {
+	const test_data = steps.slice(1).map((e, index) => {
+		return {
+			question: e.inputs[0].value,
+			answers: e.inputs.slice(1).map(a => a.value),
+			right_answer: isRightValues.slice(1)[index],
+			index
+		};
+	});
+	adminStore.addInfoToGame( {
+		title: steps[0].inputs[0].value,
+		description: steps[0].inputs[1].value,
+		link: steps[0].inputs[2].value,
+		test_data
+	});
+	createGamesisActive.value = !createGamesisActive.value;
+};
+
 </script>
 <template>
-  <div class="create-step">
+  <div
+    v-if="createGamesisActive"
+    class="create-step"
+  >
     <button
       class="create-step_button"
       :disabled="currentStep===0"
@@ -96,32 +132,50 @@ onMounted(() => {
         {{ steps[currentStep].title }}
       </h2>
       <div class="create-step_body_main">
-        <!-- <div class="main_input_wrapper"> -->
-        <vInput 
+        <div
           v-for="(i, index) in steps[currentStep].inputs"
           :key="index"
-          v-model="i.value"
-          :label="i.label"
-          :type="'text'"
           class="create-step_input"
-        />
-        <!-- </div> -->
+        >
+          <vInput 
+            v-model="i.value"
+            :label="i.label"
+            :type="'text'"
+          />
+          <input
+            v-if="currentStep >= 1 && index >= 1"
+            :id="i.label"
+            v-model="isRightValues[currentStep]"
+            class="create-step_checkbox"
+            type="radio"
+            name="is_true"
+            :value="index - 1"
+          >
+        </div>
         <v-button
           v-if="allInputsAreFilled"
           :purpose="'primary'"
           class="confirm-button"
+          @click="goToPersonPick"
         />
       </div>
     </div>
 
     <button
       class="create-step_button"
-      :disabled="currentStep===steps.length-1"
+      :disabled="currentStep === steps.length - 1"
       @click="jumpToStep(currentStep + 1)"
     >
-      {{ currentStep===steps.length-1? "": '>' }}
+      {{ currentStep === steps.length-1? "" : '>' }}
     </button>
   </div>
+  <one-pick-person
+    v-else
+    class="person-picker"
+    @game-done="gameDone"
+  >
+    123
+  </one-pick-person>
 </template>
 <style scoped lang="scss">
 //static
@@ -135,6 +189,8 @@ onMounted(() => {
       &:first-child {
           grid-column: 1  / span 2;
       }
+      display: flex;
+      justify-content: space-between;
     }
 
     &_body {
