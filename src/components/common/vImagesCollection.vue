@@ -46,14 +46,14 @@ const clickOnImage = (id: string) => {
     class="image-collection_item image-collection_skeleton"
   />
 </template>
-<style lang="scss">
+<style lang="postcss">
 .image-collection {
   --title-height: 6rem;
   display: flex;
   gap: 1rem;
   align-items: flex-end;
   &_item {
-    border-radius: $border-prime;
+    border-radius: var(--border-prime);
     backdrop-filter: blur(3rem);
     cursor: pointer;
 
@@ -61,7 +61,7 @@ const clickOnImage = (id: string) => {
 
     display: flex;
     flex-direction: column;
-    border: 1px solid $color-violet;
+    border: 1px solid var(--color-violet);
     &__title {
       margin: 0;
       height: var(--title-height);
@@ -70,10 +70,10 @@ const clickOnImage = (id: string) => {
       align-items: center;
       justify-content: center;
 
-      font-family: $neon-font;
+      font-family: var(--neon-font);
     }
     &:hover {
-      background: $gradient;
+      background: var(--gradient);
     }
   }
   &_skeleton {

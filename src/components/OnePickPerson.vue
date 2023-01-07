@@ -98,7 +98,7 @@ const checkPerson = (data: {index: number, value: string}) => {
     </v-button>
   </div>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .count-grid {
   display: flex;
   flex-direction: column;
@@ -118,27 +118,27 @@ const checkPerson = (data: {index: number, value: string}) => {
       text-align: left;
       margin: 0;
       font-size: 1.9rem;
-      color: $color-pink-3;
+      color: var(--color-pink-3);
     }
   &_item {
-    background: $color-violet;
+    background: var(--color-violet);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: .1rem 1rem;
-    border-radius: $border-prime;
+    border-radius: var(--border-prime);
     cursor: pointer;
     &_name {
-      color: $color-dark-grey;
+      color: var(--color-dark-grey);
       text-align: left;
     }
     &_radio {
-      accent-color: $color-pink-3;
-      background: $color-pink;
+      accent-color: var(--color-pink-3);
+      background: var(--color-pink);
     }
     &_checked,
     &:hover {
-      background: $color-violet-3;
+      background: var(--color-violet-3);
     }
   }
 }
@@ -151,7 +151,7 @@ const checkPerson = (data: {index: number, value: string}) => {
     left: 0;
     margin: 0 auto;
     
-    box-shadow: 0px 0px 65px 18px $color-violet;
+    box-shadow: 0px 0px 65px 18px var(--color-violet);
   }
 
 </style>

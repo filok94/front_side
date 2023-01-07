@@ -1,0 +1,54 @@
+:root {
+    --font: "Roboto Slab", serif;
+    --neon-font: "Monoton", cursive;
+
+    --color-black: hsl(0, 8%, 16%);
+    --color-black-opacity: hsl(0, 8%, 16%, 0.7);
+    --color-grey: hsl(0, 0%, 72%);
+    --color-white: hsl(240, 13%, 95%);
+    --color-red: hsl(351, 94%, 64%);
+    --color-dark-grey: hsl(0, 3%, 23%);
+
+    --dark-violet: hsla(270, 50%, 40%, 1);
+    --darkest-violet: hsla(248, 39%, 39%, 1);
+    --color-violet: hsla(236, 43%, 62%, 1);
+    --color-violet-1: hsla(236, 57%, 68%, 1);
+    --color-violet-2: hsla(236, 79%, 75%, 1);
+    --color-violet-3: hsla(239, 100%, 81%, 1);
+    --color-violet-4: hsla(244, 100%, 83%, 1);
+    --color-violet-5: hsla(250, 100%, 84%, 1);
+    --color-pink-3: hsla(260, 97%, 85%, 1);
+    --color-pink-2: hsla(271, 92%, 85%, 1);
+    --color-pink-1: hsla(270, 91%, 86%, 1);
+    --color-pink: hsla(271, 90%, 88%, 1);
+
+    --gradient: linear-gradient(
+        225deg,
+        var(--color-violet),
+        var(--color-violet-1),
+        var(--color-violet-2),
+        var(--color-violet-3),
+        var(--color-violet-4),
+        var(--color-violet-5),
+        var(--color-pink-3),
+        var(--color-pink-2),
+        var(--color-pink-1),
+        var(--color-pink)
+    );
+    --gradient-grey: linear-gradient(225deg, hsl(180, 1%, 53%), hsl(180, 1%, 68%), hsl(0, 3%, 76%));
+    --gradient-green: linear-gradient(to right, hsl(160, 36%, 47%), hsl(142, 100%, 78%));
+    --gradient-red: linear-gradient(to right, hsl(331, 93%, 48%), hsl(25, 100%, 50%));
+    --gradient-skeleton: linear-gradient(90deg, var(--color-black) 0px, hsl(0, 0%, 23%) 40%, var(--color-black) 70%);
+
+
+    --shadow-black: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+    --border-prime: 25px;
+    --border-minimal: 15px;
+    --border-large: 35px;
+
+
+    --medium-screen: 540px;
+    --large-screen: 900px;
+    --upper-large-screen: 1400px;
+}

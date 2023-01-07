@@ -30,7 +30,7 @@ onMounted(() => animateFrom(title, "fromLeft", ANIMATIONS_RANGE.VERY_LOW));
     </div>
   </div>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .base_page {
   display: grid;
   grid-template-rows: 10rem 1fr;
@@ -40,7 +40,7 @@ onMounted(() => animateFrom(title, "fromLeft", ANIMATIONS_RANGE.VERY_LOW));
     text-align: left;
     font-size: 4rem;
     font-weight: 600;
-    color: $color-violet-5;
+    color: var(--color-violet-5);
     user-select: none;
   }
 }

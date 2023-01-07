@@ -59,4 +59,4 @@ onMounted(async () => {
   </v-base-page>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="postcss" scoped></style>

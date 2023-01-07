@@ -1,5 +1,16 @@
 <script setup lang="ts"></script>
 <template>
-  <div>TODO</div>
+  <div class="wrapper">
+    <div class="wrapper_nested">
+      nested
+    </div>
+    TODO
+  </div>
 </template>
-<style scoped lang="scss"></style>
+<style scoped lang="postcss">
+.wrapper {
+  &_nested {
+    background: var(--gradient);
+  }
+}
+</style>

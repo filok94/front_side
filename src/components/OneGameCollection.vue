@@ -61,7 +61,7 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .game-collection-container {
   display: grid;
   grid-gap: 3rem;
@@ -82,13 +82,16 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
   transform: rotate(-35deg);
   display: flex;
   align-items: center;
-  font-family: $neon-font;
+  font-family: var(--neon-font);
   z-index: -1;
 
   user-select: none;
   #background-text {
-    @include bcg-for-text($gradient);
-    color: $color-violet;
+    background: var(--gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--color-violet);
     margin: 0;
   }
   #broken-letter {
@@ -105,12 +108,12 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
 }
 .is-test-ended {
   position: absolute;
-  color: $color-violet;
-  background: $gradient-green;
+  color: var(--color-violet);
+  background: var(--gradient-green);
   padding: 0.6rem;
   border-radius: 100%;
 }
-@media (min-width: $large-screen) {
+@media (min-width: 900px) {
   .game-collection-container {
     grid-template-columns: 5fr 1fr;
     .background-text-container {

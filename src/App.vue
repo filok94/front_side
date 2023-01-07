@@ -34,14 +34,16 @@ const goHomeByLogo = () => {
   </main>
 </template>
 
-<style lang="scss">
+<style lang="postcss">
+@import './assets/vars.css';
+
 :root {
-  accent-color: $color-pink-3;
+  accent-color: var(--color-pink-3);
 }
 body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
-  background: $color-black;
+  background: var(--color-black);
   margin: 0;
 }
 
@@ -50,9 +52,9 @@ main {
 }
 
 #app {
-  font-family: $font;
+  font-family: var(--font);
   text-align: center;
-  color: $color-white;
+  color: var(--color-white);
   max-width: 100vw;
 }
 
@@ -72,7 +74,7 @@ nav {
       left: 10vw;
       width: 30rem;
       height: 30rem;
-      background: $color-violet-3;
+      background: var(--color-violet-3);
       border-radius: 30% 80% 40% 20% / 40% 50% 60% 50%;
       z-index: -100;
       filter: blur(13px) opacity(0.4);
@@ -84,7 +86,7 @@ nav {
       right: 1vw;
       width: 30rem;
       height: 30rem;
-      background: $color-violet;
+      background: var(--color-violet);
       border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
       z-index: -100;
       filter: blur(13px) opacity(0.8);
@@ -92,7 +94,7 @@ nav {
 
     #circled-logo {
       cursor: pointer;
-      background: $gradient;
+      background: var(--gradient);
       border-radius: 100%;
       padding: 0.4rem 0.5rem;
       color: white;
@@ -103,7 +105,10 @@ nav {
     #text-logo {
       margin: 0;
       cursor: pointer;
-      @include bcg-for-text($gradient);
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       align-self: center;
     }
   }

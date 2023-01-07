@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { ROUTER_NAMES } from "../router";
+import vButton from "../components/common/vButton.vue";
 const router = useRouter();
 const backToMainPage = () => {
 	router.push({
@@ -17,19 +18,19 @@ const backToMainPage = () => {
     4
     <span>0</span>4
   </h1>
-  <button @click.prevent="backToMainPage">
+  <v-button
+    :purpose="'primary'"
+    @click.prevent="backToMainPage"
+  >
     На главную
-  </button>
+  </v-button>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 h1 {
   font-size: 15rem;
   span {
-    color: $color-pink;
+    color: var(--color-pink);
   }
-}
-button {
-  @include primary-button();
 }
 </style>

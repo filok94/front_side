@@ -150,15 +150,15 @@ const endAndGoHome = () =>
     </transition>
   </v-panel>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .result {
   &_close {
     display: flex;
     justify-content: end;
     div {
-      font-family: $neon-font;
+      font-family: var(--neon-font);
       cursor: pointer;
-      color: $color-grey;
+      color: var(--color-grey);
       user-select: none;
       &:active {
         opacity: 0.8;
@@ -175,18 +175,24 @@ const endAndGoHome = () =>
   &_content {
     &_person {
       &_title {
-        font-family: $neon-font;
+        font-family: var(--neon-font);
         font-size: 2.5rem;
-        @include bcg-for-text($gradient);
+        background: var(--gradient);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       &_description {
-        color: $color-grey;
+        color: var(--color-grey);
       }
       &_count {
         span {
           font-size: 3rem;
           font-weight: bold;
-          @include bcg-for-text($gradient-green);
+          background: var(--gradient-green);
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
       }
     }
@@ -196,21 +202,27 @@ const endAndGoHome = () =>
         font-weight: bold;
       }
       &_variant {
-        color: $color-pink-3;
-        font-family: $neon-font;
+        color: var(--color-pink-3);
+        font-family: var(--neon-font);
         span {
           font-size: 1rem;
-          font-family: $font;
-          color: $color-grey;
+          font-family: var(--font);
+          color: var(--color-grey);
         }
       }
       &_correct {
-        font-family: $neon-font;
-        @include bcg-for-text($gradient-green);
+        font-family: var(--neon-font);
+        background: var(--gradient-green);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       &_incorrect {
-        font-family: $neon-font;
-        @include bcg-for-text($gradient-red);
+        font-family: var(--neon-font);
+        background: var(--gradient-red);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
     }
   }

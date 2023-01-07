@@ -84,21 +84,21 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
   </dialog>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .v-modal {
-  border-radius: $border-prime;
-  background: $color-black;
+  border-radius: var(--border-prime);
+  background: var(--color-black);
   min-width: 40vw;
   min-height: 40vh;
   max-height: 90vh;
   overflow-y: scroll;
   padding: 0;
   border: none;
-  box-shadow: $shadow-black;
+  box-shadow: var(--shadow-black);
   scrollbar-width: none;
 
   &::backdrop {
-    background: $color-black;
+    background: var(--color-black);
     opacity: .5;
   }
   &_inner {
@@ -117,22 +117,22 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
   min-height: 2rem;
   z-index: 100;
 
-  box-shadow: $shadow-black;
-  background: $color-black;
+  box-shadow: var(--shadow-black);
+  background: var(--color-black);
 
   button {
     height: 4rem;
     width: 2rem;
     border: none;
-    border-radius: 0 $border-prime 0 $border-prime;
-    background: $color-red;
+    border-radius: 0 var(--border-prime) 0 var(--border-prime);
+    background: var(--color-red);
     cursor: pointer;
     &:hover {
           opacity: .8;
         }
         &:active, &:disabled {
             opacity: .6;
-            outline-color: $color-pink;
+            outline-color: var(--color-pink);
         }
         &:disabled {
           cursor: default;
@@ -146,22 +146,25 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
 }
 
 h1 {
-  @include bcg-for-text($gradient);
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-align: left;
-  font-family: $neon-font;
+  font-family: var(--neon-font);
   font-size: 2.5rem;
   margin: 1.5rem;
 }
 
 .v-modal_confirm {
-  background: $color-black;
+  background: var(--color-black);
   border: none;
   width: 40vw;
-  border-radius: $border-prime;
-  box-shadow: $shadow-black;
+  border-radius: var(--border-prime);
+  box-shadow: var(--shadow-black);
 
   &::backdrop {
-    background: $color-black;
+    background: var(--color-black);
     opacity: .8;
   }
 

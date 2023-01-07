@@ -5,7 +5,7 @@
   </TransitionGroup>
 </template>
 
-<style lang="scss">
+<style lang="postcss">
 .list-move,
 .list-enter-active,
 .list-leave-active {

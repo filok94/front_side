@@ -57,27 +57,25 @@ const dynamicClasses = reactive({
   </button>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .v_button {
-  border-radius: $border-prime;
+  border-radius: var(--border-prime);
   border: none;
   max-height: 5rem;
 
-  font-family: $font;
+  font-family: var(--font);
   font-size: 1.5rem;
 
   padding: 1rem;
 
-  color: $color-white;
-  box-shadow: $shadow-black;
+  color: var(--color-white);
+  box-shadow: var(--shadow-black);
 
   z-index: 1;
 
-  //width: 20%;
-
   cursor: pointer;
   &:disabled {
-    background: $gradient-grey;
+    background: var(--gradient-grey);
     box-shadow: none;
   }
   transition: 0.3s;
@@ -85,16 +83,16 @@ const dynamicClasses = reactive({
     box-shadow: none;
   }
   &_cancel {
-    background: $gradient-grey;
+    background: var(--gradient-grey);
     box-shadow: none;
   }
   &_primary {
-    background: $gradient;
-    box-shadow: -1px 1px 3px 1px $color-violet, 1px -1px 3px 1px $color-violet-5;
+    background: var(--gradient);
+    box-shadow: -1px 1px 3px 1px var(--color-violet), 1px -1px 3px 1px var(--color-violet-5);
   }
   &_white {
-    background: $color-white;
-    color: $color-black;
+    background: var(--color-white);
+    color: var(--color-black);
   }
   &_small {
     max-width: 6rem;
@@ -111,7 +109,7 @@ const dynamicClasses = reactive({
     font-size: 1.5rem;
   }
   &_loading {
-    color: $color-black;
+    color: var(--color-black);
   }
 }
 </style>

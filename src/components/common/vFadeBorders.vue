@@ -15,7 +15,7 @@ const faderHeight = computed(() => {
     <div class="fader fader_bottom" />
   </div>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .fader {
   content: "";
   width: 100%;
@@ -25,13 +25,13 @@ const faderHeight = computed(() => {
   z-index: 4;
 
   &_top {
-    border-radius: $border-prime $border-prime 0 0;
-    background: linear-gradient(to top, transparent, $color-black);
+    border-radius: var(--border-prime) var(--border-prime) 0 0;
+    background: linear-gradient(to top, transparent, var(--color-black));
     top: v-bind(faderHeight);
   }
   &_bottom {
-    border-radius: 0 0 $border-prime $border-prime;
-    background: linear-gradient(to bottom, transparent, $color-black);
+    border-radius: 0 0 var(--border-prime) var(--border-prime);
+    background: linear-gradient(to bottom, transparent, var(--color-black));
     bottom: v-bind(faderHeight);
   }
 

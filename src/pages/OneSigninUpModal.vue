@@ -49,7 +49,7 @@ const disableButtonCondition = computed(() => {
 const signByButton = async () => {
 	if (!disableButtonCondition.value) {
 		const methodUrl =
-      route.name == ROUTER_NAMES.login.sign_in ? SIGN_URLS.sign_in: SIGN_URLS.sign_up;
+      route.name == ROUTER_NAMES.login.sign_in ? SIGN_URLS.sign_in : SIGN_URLS.sign_up;
 		const res = (await signIn(methodUrl, {
 			login: login.value,
 			password: password.value,
@@ -123,8 +123,7 @@ const signByButton = async () => {
   </VPanel>
 </template>
 
-<style lang="scss">
-// state dynamic classes
+<style lang="postcss">
 .login_page_panel {
   margin: 2rem auto;
   max-width: 20%;
@@ -154,5 +153,4 @@ const signByButton = async () => {
     grid-column-end: 3;
   }
 }
-//static styles
 </style>

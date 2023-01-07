@@ -36,7 +36,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="postcss">
 .loader-square-container {
   position: fixed;
   top: 40%;
@@ -48,7 +48,7 @@ onMounted(() => {
     width: 2rem;
     height: 2rem;
     border-radius: 100%;
-    background: $color-violet;
+    background: var(--color-violet);
     border-radius: v-bind("borders");
   }
 }

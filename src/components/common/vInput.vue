@@ -81,69 +81,67 @@ watch(props, (nValue) => {
     </p>
   </form>
 </template>
-<style lang="scss" scoped>
-	//dynamic class
-	.v_form_label_up {
-		transform: translateY(-1.3rem);
-		background-color: $color-black;
+<style lang="postcss" scoped>
+.v_form_label_up {
+	transform: translateY(-1.3rem);
+	background-color: var(--color-black);
+}
+
+.v_input_error {
+	outline-color: var(--color-red) !important;
+}
+.v_form {
+	max-width: max-content;
+	margin: 0.5rem;
+	display: grid;
+	grid-template-rows: repeat(3, 1fr);
+
+	&_input {
+		text-indent: 0.5rem;
+		display: block;
+		border-radius: var(--border-prime);
+		padding: 0.7rem 1.9rem;
+		font-size: 1rem;
+		outline: var(--color-violet-1) solid;
+		border: none;
+		background-color: var(--color-black);
+		color: var(--color-white);
+		font-family: var(--font);
+		&:focus {
+			outline-color: var(--color-violet);
+		}
+		position: relative;
+		left: 1rem;
 	}
 
-	.v_input_error {
-		outline-color: $color-red !important;
+	&_label {
+		padding: 0 0.5rem;
+		position: relative;
+		top: 3.3rem;
+		left: 2rem;
+		justify-self: start;
+		align-self: start;
+		line-height: 1.3rem;
+		font-weight: bolder;
+		color: rgba(255, 255, 255, 0.568);
+		transition: 0.3s ease-in-out;
+		border-radius: var(--border-minimal);
+		cursor: text;
+		z-index: 3;
 	}
-	//static class
-	.v_form {
-		max-width: max-content;
-		margin: 0.5rem;
-		display: grid;
-		grid-template-rows: repeat(3, 1fr);
-
-		&_input {
-			text-indent: 0.5rem;
-			display: block;
-			border-radius: $border-prime;
-			padding: 0.7rem 1.9rem;
-			font-size: 1rem;
-			outline: $color-violet-1 solid;
-			border: none;
-			background-color: $color-black;
-			color: $color-white;
-			font-family: $font;
-			&:focus {
-				outline-color: $color-violet;
-			}
-			position: relative;
-			left: 1rem;
-		}
-
-		&_label {
-			padding: 0 0.5rem;
-			position: relative;
-			top: 3.3rem;
-			left: 2rem;
-			justify-self: start;
-			align-self: start;
-			line-height: 1.3rem;
-			font-weight: bolder;
-			color: rgba(255, 255, 255, 0.568);
-			transition: 0.3s ease-in-out;
-			border-radius: $border-minimal;
-			cursor: text;
-			z-index: 3;
-		}
-		&_error {
-			margin: 0;
-			color: $color-red;
-			position: relative;
-			font-size: 0.9rem;
-		}
+	&_error {
+		margin: 0;
+		color: var(--color-red);
+		position: relative;
+		font-size: 0.9rem;
 	}
-	.v-form_wrapper {
-		display: flex;
-		align-items: center;
-		svg {
-			position: relative;
-			left: -1rem;
-		}
+}
+.v-form_wrapper {
+	display: flex;
+	align-items: center;
+	svg {
+		position: relative;
+		left: -1rem;
 	}
+}
 </style>
