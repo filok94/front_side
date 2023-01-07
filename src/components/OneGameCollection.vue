@@ -7,6 +7,7 @@ import { useGamesStore } from "../stores/games_store";
 import { ROUTER_NAMES } from "../router";
 import vCard from "./common/vCard.vue";
 import { HTMLRef } from "../types/testsTypes.interface";
+import vGradient from "./common/vGradientText.vue";
 
 const router = useRouter();
 const gamesStore = useGamesStore();
@@ -48,9 +49,11 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
       v-show="gamesList"
       class="background-text-container"
     >
-      <h1 id="background-text">
-        GAME
-      </h1>
+      <v-gradient>
+        <h1 id="background-text">
+          GAME
+        </h1>
+      </v-gradient>
       <h1
         id="broken-letter"
         ref="brokenLetter"
@@ -87,11 +90,6 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
 
   user-select: none;
   #background-text {
-    background: var(--gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: var(--color-violet);
     margin: 0;
   }
   #broken-letter {

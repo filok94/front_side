@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { ROUTER_NAMES } from "./router";
+import vGradient from "./components/common/vGradientText.vue";
 const router = useRouter();
 const goHomeByLogo = () => {
 	router.push({
@@ -21,12 +22,14 @@ const goHomeByLogo = () => {
       >
         S J
       </p>
-      <p
-        id="text-logo"
-        @click.prevent="goHomeByLogo"
-      >
-        Games
-      </p>
+      <v-gradient>
+        <p
+          id="text-logo"
+          @click.prevent="goHomeByLogo"
+        >
+          Games
+        </p>
+      </v-gradient>
     </div>
   </nav>
   <main>
@@ -105,11 +108,6 @@ nav {
     #text-logo {
       margin: 0;
       cursor: pointer;
-      background: var(--gradient);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      align-self: center;
     }
   }
 }

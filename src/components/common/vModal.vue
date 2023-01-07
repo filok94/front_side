@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, Ref, ref } from "vue";
 import { onClickOutside, useEventListener } from "@vueuse/core";
 import vButton from "./vButton.vue";
+import vGradient from "./vGradientText.vue";
 
 const emit = defineEmits<{ (e: "closeModal", target: boolean): void }>();
 const props = defineProps<{
@@ -50,7 +51,9 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
       class="v-modal_inner"
     >
       <div class="v-modal_header">
-        <h1>{{ props.title }}</h1>
+        <v-gradient>
+          <h1>{{ props.title }}</h1>
+        </v-gradient>
         <button @click.prevent="props.isEasyClosable ? destroyModal() : confirmModal?.showModal()">
           X
         </button>
@@ -146,10 +149,6 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
 }
 
 h1 {
-  background: var(--gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   text-align: left;
   font-family: var(--neon-font);
   font-size: 2.5rem;
@@ -173,5 +172,8 @@ h1 {
     gap: 3rem;
     justify-content: center;
   }
+   h1 {
+    color: var(--color-white);
+   }
 }
 </style>

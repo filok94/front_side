@@ -10,6 +10,7 @@ import { HTMLRef } from "../types/testsTypes.interface";
 import VButton from "../components/common/vButton.vue";
 import { useRouter } from "vue-router";
 import { ROUTER_NAMES } from "../router";
+import vGradient from "../components/common/vGradientText.vue";
 
 const { activeGame, person, gameResult } = storeToRefs(useGamesStore());
 const gameStore = useGamesStore();
@@ -106,14 +107,18 @@ const endAndGoHome = () =>
         ref="content"
         class="result_content_person"
       >
-        <h2 class="result_content_person_title">
-          {{ person?.name }}
-        </h2>
+        <v-gradient>
+          <h2 class="result_content_person_title">
+            {{ person?.name }}
+          </h2>
+        </v-gradient>
         <h3 class="result_content_person_description">
           {{ person?.description }}
         </h3>
         <p class="result_content_person_count">
-          <span>{{ person?.count }}</span> из
+          <v-gradient>
+            <span>{{ person?.count }}</span> из
+          </v-gradient>
           {{ activeGame?.questions?.length }}
         </p>
         <div class="home-button">
@@ -136,16 +141,20 @@ const endAndGoHome = () =>
         <h3 class="result_content_answers_variant">
           Right: <span>{{ currentRightAnswer }}</span>
         </h3>
-        <h3
-          :class="{
-            result_content_answers_correct:
-              gameResult[props.indexToShow].is_right,
-            result_content_answers_incorrect:
-              !gameResult[props.indexToShow].is_right,
-          }"
+        <v-gradient
+          :gradient-color="gameResult[props.indexToShow].is_right ? 'gradient-green' : 'gradient-red'"
         >
-          {{ gameResult[props.indexToShow].is_right ? "Correct" : "Incorrect" }}
-        </h3>
+          <h3
+            :class="{
+              result_content_answers_correct:
+                gameResult[props.indexToShow].is_right,
+              result_content_answers_incorrect:
+                !gameResult[props.indexToShow].is_right,
+            }"
+          >
+            {{ gameResult[props.indexToShow].is_right ? "Correct" : "Incorrect" }}
+          </h3>
+        </v-gradient>
       </div>
     </transition>
   </v-panel>
@@ -177,10 +186,6 @@ const endAndGoHome = () =>
       &_title {
         font-family: var(--neon-font);
         font-size: 2.5rem;
-        background: var(--gradient);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
       &_description {
         color: var(--color-grey);
@@ -189,10 +194,6 @@ const endAndGoHome = () =>
         span {
           font-size: 3rem;
           font-weight: bold;
-          background: var(--gradient-green);
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
         }
       }
     }
@@ -212,17 +213,9 @@ const endAndGoHome = () =>
       }
       &_correct {
         font-family: var(--neon-font);
-        background: var(--gradient-green);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
       &_incorrect {
         font-family: var(--neon-font);
-        background: var(--gradient-red);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
     }
   }

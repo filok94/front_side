@@ -9,6 +9,7 @@ import vTranistionGrop from "../components/common/vTransitionGroup.vue";
 import vPanel from "../components/common/vPanel.vue";
 import vFadeBorders from "../components/common/vFadeBorders.vue";
 import vBasePage from "./vBasePage.vue";
+import vGradient from "../components/common/vGradientText.vue";
 
 import { HTMLRef, IAnswersList } from "../types/testsTypes.interface";
 import { IGetQuestionsResponse } from "../api/gameController/games.api.interfaces";
@@ -110,9 +111,9 @@ const chooseQuestionToShowResults = (param: { index: number }) => {
             class="active_question card-head"
             vif
           >
-            <h2>
-              {{ currentBlock?.question }}
-            </h2>
+            <v-gradient>
+              <h2>{{ currentBlock?.question }}</h2>
+            </v-gradient>
           </v-panel>
           <transition
             :duration="300"
@@ -264,12 +265,6 @@ h1.game-title {
       z-index: 2;
       min-height: 6rem;
       max-width: 100%;
-      h2 {
-        background: var(--gradient);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
     }
     &_answers {
       border-radius: 0 0 var(--border-prime) var(--border-prime);
