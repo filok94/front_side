@@ -1,2 +1,2 @@
-# tests is a fun pet project.
-Written with Vue3 + vite + typescript
+# Front-end side
+Written with Vue3 + Pinia + Vue router + Vite + Typescript
