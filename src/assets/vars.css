@@ -50,8 +50,10 @@
     --border-minimal: 15px;
     --border-large: 35px;
 
-
-    --medium-screen: 540px;
-    --large-screen: 900px;
-    --upper-large-screen: 1400px;
+    @custom-media --small-screen (max-width: 640px);
+    @custom-media --medium-screen (max-width: 720px);
+    @custom-media --upper-medium-screen (min-width: 720px);
+    @custom-media --large-screen (min-width: 900px);
+    @custom-media --upper-large-screen (max-width: 1280px);
+    @custom-media --big-screen (min-width: 1400px);
 }

@@ -79,6 +79,8 @@ const panelAway = (el: HTMLDivElement) => {
 </template>
 
 <style lang="postcss" scoped>
+@import '../assets/vars.css';
+
 .home-navigation {
   border-radius: var(--border-prime);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -103,7 +105,7 @@ const panelAway = (el: HTMLDivElement) => {
   }
 }
 
-@media (min-width: 540px) {
+@media (--upper-medium-screen) {
   .home-navigation {
     flex-wrap: nowrap;
   }

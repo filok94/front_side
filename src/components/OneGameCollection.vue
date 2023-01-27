@@ -65,6 +65,8 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
 </template>
 
 <style lang="postcss" scoped>
+@import '../assets/vars.css';
+
 .game-collection-container {
   display: grid;
   grid-gap: 3rem;
@@ -111,7 +113,7 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
   padding: 0.6rem;
   border-radius: 100%;
 }
-@media (min-width: 900px) {
+@media (--large-screen) {
   .game-collection-container {
     grid-template-columns: 5fr 1fr;
     .background-text-container {

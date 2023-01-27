@@ -223,13 +223,15 @@ onMounted(async () => {
 </template>
 
 <style lang="postcss" scoped>
-@media (max-width: 720px) {
- .navbar-screen {
-		display: none;
- }
-}
-@media (min-width: 720px) {
+@import '../assets/vars.css';
 
+@media (--medium-screen) {
+	.navbar-screen {
+		display: none;
+	}
+}
+@media (--upper-medium-screen) {
+	
 	.nav-circle {
 		display: none;
 	}

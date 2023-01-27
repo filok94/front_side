@@ -40,9 +40,6 @@ const goHomeByLogo = () => {
 <style lang="postcss">
 @import './assets/vars.css';
 
-:root {
-  accent-color: var(--color-pink-3);
-}
 body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;

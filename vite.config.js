@@ -11,15 +11,9 @@ export default defineConfig({
 	],
 
 	css: {
-		preprocessorOptions: {
-			scss: {
-				additionalData: `@import "./src/assets/vars";
-                         		 @import "./src/assets/mixins";`,
-			},
-		},
 		postcss: {
 			plugins: [ postcssNested,
-				postcssCustomMedia() ]
+				postcssCustomMedia ]
 		},
 	},
 });
