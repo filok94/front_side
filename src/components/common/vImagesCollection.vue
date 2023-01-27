@@ -28,13 +28,13 @@ const clickOnImage = (id: string) => {
       v-for="item in props.srcArray"
       :key="item._id"
       class="image-collection_item"
+      @click.prevent="clickOnImage(item._id)"
     >
       <img
         class="image-collection_item__image"
         :src="item.base_link"
         alt="image collection item"
         :width="cardDimension / 2"
-        @click.prevent="clickOnImage(item._id)"
       >
       <h2 class="image-collection_item__title">
         {{ item.ref_name.toUpperCase() }}

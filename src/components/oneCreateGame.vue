@@ -267,7 +267,7 @@ const goToPersonPick = () => {
         }
         &:focus-visible {
           outline-style: solid;
-          outline-color: $color-pink
+          outline-color: var(--color-pink);
         }
     }
   }

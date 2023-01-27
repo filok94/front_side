@@ -16,7 +16,7 @@ defineExpose({
 .v-panel {
   background-color: var(--color-black);
   border-radius: var(--border-prime);
-  border: solid $color-violet 1px;
+  border: solid var(--color-violet) 1px;
   box-shadow: var(--shadow-black);
   padding: 2rem 2.5rem;
   max-width: max-content;

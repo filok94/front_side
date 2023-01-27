@@ -63,9 +63,9 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
         ref="confirmModal"
         class="v-modal_confirm"
       >
-        <h1>
-          Are you sure you want to close the window?
-        </h1>
+        <v-gradient>
+          <h1>Are you sure you want to close the window?</h1>
+        </v-gradient>
         <div
           class="v-modal_confirm_controller"
         >
@@ -131,19 +131,20 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
     background: var(--color-red);
     cursor: pointer;
     &:hover {
-          opacity: .8;
-        }
-        &:active, &:disabled {
-            opacity: .6;
-            outline-color: var(--color-pink);
-        }
-        &:disabled {
-          cursor: default;
-        }
-        &:focus-visible {
-          outline-style: solid;
-          outline-color: $color-pink
-        }
+      opacity: .8;
+    }
+    &:active, &:disabled {
+      opacity: .6;
+    }
+    &:disabled {
+      cursor: default;
+    }
+    &:focus-visible {
+      outline-style: solid;
+    }
+    &:focus {
+      outline-color: var(--color-black);
+    }
 
   }
 }
@@ -164,7 +165,7 @@ h1 {
 
   &::backdrop {
     background: var(--color-black);
-    opacity: .8;
+    opacity: .4;
   }
 
   &_controller {
@@ -172,8 +173,5 @@ h1 {
     gap: 3rem;
     justify-content: center;
   }
-   h1 {
-    color: var(--color-white);
-   }
 }
 </style>
