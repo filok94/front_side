@@ -205,7 +205,7 @@ onMounted(async () => {
           if (el) circles[i] = el;
         }
       "
-      class="target-circle"
+      class="target-circle target-circle_action"
       :class="{ 'active-target': activeTabIs == i }"
       @click.self.stop.prevent="button($event)"
     >
@@ -214,7 +214,7 @@ onMounted(async () => {
     <div
       v-show="isCirclesActive"
       ref="logoutTabRef"
-      class="logout-target-circle"
+      class="logout-target-circle target-circle"
       @click.self.stop.prevent="logoutTab.action"
     >
       {{ logoutTab.name }}
@@ -222,14 +222,16 @@ onMounted(async () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
-@media (max-width: 720px) {
- .navbar-screen {
-		display: none;
- }
-}
-@media (min-width: 720px) {
+<style lang="postcss" scoped>
+@import '../assets/vars.css';
 
+@media (--medium-screen) {
+	.navbar-screen {
+		display: none;
+	}
+}
+@media (--upper-medium-screen) {
+	
 	.nav-circle {
 		display: none;
 	}
@@ -239,14 +241,14 @@ onMounted(async () => {
 		margin: 1rem;
 	}
 	.navbar-screen_item {
-		background: $color-violet;
-		border-radius: $border-prime;
+		background: var(--color-violet);
+		border-radius: var(--border-prime);
 		padding:1rem;
 		transition: .3s ease;
 		cursor: pointer;
-		color: $color-grey;
+		color: var(--color-grey);
 		&_active {
-			background: $color-violet-3;
+			background: var(--color-violet-3);
 			transform: scale(105%);
 			color: white;
 		}
@@ -254,7 +256,7 @@ onMounted(async () => {
 			opacity:.9;
 		}
 		&_logout {
-			background: $gradient-red;
+			background: var(--gradient-red);
 		}
 	}
 }
@@ -266,21 +268,32 @@ onMounted(async () => {
 		"lc cc rc"
 		"lb cb rb";
 	position: relative;
-	$areas: cb lb lc lt ct rt rc;
 
-	@each $i in $areas {
-		$c: index(
-			$list: $areas,
-			$value: $i,
-		);
-		$c: $c + 1;
-
-		.target-circle:nth-of-type(#{$c}) {
-			grid-area: $i;
-			z-index: 0;
+	.target-circle_action {
+		z-index: 0;
+	
+		&:nth-of-type(2) {
+			grid-area: cb;
+		}
+		&:nth-of-type(3) {
+			grid-area: lb;
+		}
+		&:nth-of-type(4) {
+			grid-area: lc;
+		}
+		&:nth-of-type(5) {
+			grid-area: lt;
+		}
+		&:nth-of-type(6) {
+			grid-area: ct;
+		}
+		&:nth-of-type(7) {
+			grid-area: rt;
+		}
+		&:nth-of-type(8) {
+			grid-area: rc;
 		}
 	}
-
 	grid-template-columns: 5rem;
 	grid-gap: 1rem;
 }
@@ -290,7 +303,7 @@ onMounted(async () => {
 	width: 3rem;
 	height: 3rem;
 	padding: 1rem;
-	background: $color-violet-1;
+	background: var(--color-violet-1);
 	box-shadow: 0 10px 30px rgba(85, 39, 160, 0.486),
 		0 26px 26px rgba(0, 0, 0, 0.23);
 	cursor: pointer;
@@ -306,25 +319,33 @@ onMounted(async () => {
 	p {
 		font-size: 0.5rem;
 		margin: 0;
-		color: $color-grey;
+		color: var(--color-grey);
 	}
 
 	&-is-active {
 		transform: scale(110%);
-		background: $color-violet-3;
+		background: var(--color-violet-3);
 	}
 }
 
 .target-circle {
-	@include targetCircle($color-violet);
+	background: var(--color-violet);
+	font-size: 0.8rem;
+	line-height: 4rem;
+	width: 4rem;
+	height: 4rem;
+	border-radius: 100%;
+	color: var(--color-grey);
+	cursor: pointer;
+	box-shadow: var(--shadow-black);
 }
 
 .logout-target-circle {
-	@include targetCircle($gradient-red);
+	background: var(--gradient-red);
 	grid-area: rb;
-}
+}	
 
 .active-target {
-	background: $color-violet-3 !important;
+	background: var(--color-violet-3) !important;
 }
 </style>

@@ -78,12 +78,13 @@ const panelAway = (el: HTMLDivElement) => {
   </router-view>
 </template>
 
-<style lang="scss" scoped>
-//dynamic
+<style lang="postcss" scoped>
+@import '../assets/vars.css';
 
 .home-navigation {
-  border-radius: $border-prime;
+  border-radius: var(--border-prime);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background: var(--color-black);
   display: inline-flex;
   justify-content: center;
 
@@ -92,19 +93,19 @@ const panelAway = (el: HTMLDivElement) => {
   margin: 0 1rem;
 
   div {
-    border-radius: $border-prime;
+    border-radius: var(--border-prime);
     max-width: 100%;
     padding: 1rem;
     width: 100%;
     cursor: pointer;
-    background: $color-black;
+    background: var(--color-black);
   }
   .active {
-    background: $gradient;
+    background: var(--gradient);
   }
 }
 
-@media (min-width: $medium-screen) {
+@media (--upper-medium-screen) {
   .home-navigation {
     flex-wrap: nowrap;
   }

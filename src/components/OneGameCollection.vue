@@ -7,6 +7,7 @@ import { useGamesStore } from "../stores/games_store";
 import { ROUTER_NAMES } from "../router";
 import vCard from "./common/vCard.vue";
 import { HTMLRef } from "../types/testsTypes.interface";
+import vGradient from "./common/vGradientText.vue";
 
 const router = useRouter();
 const gamesStore = useGamesStore();
@@ -48,9 +49,11 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
       v-show="gamesList"
       class="background-text-container"
     >
-      <h1 id="background-text">
-        GAME
-      </h1>
+      <v-gradient>
+        <h1 id="background-text">
+          GAME
+        </h1>
+      </v-gradient>
       <h1
         id="broken-letter"
         ref="brokenLetter"
@@ -61,7 +64,9 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
+@import '../assets/vars.css';
+
 .game-collection-container {
   display: grid;
   grid-gap: 3rem;
@@ -82,13 +87,11 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
   transform: rotate(-35deg);
   display: flex;
   align-items: center;
-  font-family: $neon-font;
+  font-family: var(--neon-font);
   z-index: -1;
 
   user-select: none;
   #background-text {
-    @include bcg-for-text($gradient);
-    color: $color-violet;
     margin: 0;
   }
   #broken-letter {
@@ -105,12 +108,12 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter));
 }
 .is-test-ended {
   position: absolute;
-  color: $color-violet;
-  background: $gradient-green;
+  color: var(--color-violet);
+  background: var(--gradient-green);
   padding: 0.6rem;
   border-radius: 100%;
 }
-@media (min-width: $large-screen) {
+@media (--large-screen) {
   .game-collection-container {
     grid-template-columns: 5fr 1fr;
     .background-text-container {

@@ -177,8 +177,7 @@ const goToPersonPick = () => {
     123
   </one-pick-person>
 </template>
-<style scoped lang="scss">
-//static
+<style scoped lang="postcss">
   .create-step {
     display: flex;
     justify-content: space-between;
@@ -202,8 +201,8 @@ const goToPersonPick = () => {
 
         &_title {
              font-size: 1.4rem;
-             font-family: $neon-font;
-             color: $color-pink-3;
+             font-family: var(--neon-font);
+             color: var(--color-pink-3);
         }
         
         &_main {
@@ -223,16 +222,16 @@ const goToPersonPick = () => {
 
         cursor: pointer;
         
-        background: $color-pink;
-        color: $color-dark-grey;
+        background: var(--color-pink);
+        color: var(--color-dark-grey);
 
         display: flex;
         align-items: center;
         &:first-of-type {
-          border-radius: $border-prime 0 0 $border-prime;
+          border-radius: var(--border-prime) 0 0 var(--border-prime);
         }
         &:last-of-type {
-          border-radius: 0 $border-prime $border-prime 0;
+          border-radius: 0 var(--border-prime) var(--border-prime) 0;
         }
 
         &:hover {
@@ -248,14 +247,14 @@ const goToPersonPick = () => {
         width: 5%;
         height: 5rem;
         text-align: center;
-        background: $color-violet;
+        background: var(--color-violet);
         border: none;
         cursor: pointer;
         &:nth-child(1) {
-            border-radius: 0 $border-prime $border-prime 0;
+            border-radius: 0 var(--border-prime) var(--border-prime) 0;
         }
         &:nth-child(3) {
-            border-radius: $border-prime 0 0 $border-prime;
+            border-radius: var(--border-prime) 0 0 var(--border-prime);
         }
         &:hover {
           opacity: .8;
@@ -268,19 +267,18 @@ const goToPersonPick = () => {
         }
         &:focus-visible {
           outline-style: solid;
-          outline-color: $color-pink
+          outline-color: var(--color-pink);
         }
     }
   }
   .bar-item_done {
-    //dynamic class
-    background: $gradient-green;
+    background: var(--gradient-green);
   }
   .confirm-button {
     z-index: 10;
     position: fixed;
     bottom: 10rem;
     
-    box-shadow: 0px 0px 65px 18px $color-violet;
+    box-shadow: 0px 0px 65px 18px var(--color-violet);
   }
 </style>

@@ -83,7 +83,7 @@ onMounted(() => {
     <slot />
   </div>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .vcard-container {
   padding: 0.5rem 1.5rem;
 
@@ -95,24 +95,27 @@ onMounted(() => {
   align-items: start;
   text-align: start;
 
-  border-radius: $border-prime;
-  box-shadow: $shadow-black;
-  background: $color-black;
+  border-radius: var(--border-prime);
+  box-shadow: var(--shadow-black);
+  background: var(--color-black);
 
   .vcard-description {
-    color: $color-grey;
+    color: var(--color-grey);
   }
 
   transition: .3s ease;
   &:hover {
     transform: scale(101%);
     .vcard-title {
-      @include bcg-for-text($gradient);
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;;
     }
   }
 }
 .vcard-image {
-  border-radius: $border-prime;
+  border-radius: var(--border-prime);
 }
 .vcard-hover {
   cursor: pointer;

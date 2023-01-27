@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
 import { ROUTER_NAMES } from "./router";
+import vGradient from "./components/common/vGradientText.vue";
 const router = useRouter();
 const goHomeByLogo = () => {
 	router.push({
@@ -21,12 +22,14 @@ const goHomeByLogo = () => {
       >
         S J
       </p>
-      <p
-        id="text-logo"
-        @click.prevent="goHomeByLogo"
-      >
-        Games
-      </p>
+      <v-gradient>
+        <p
+          id="text-logo"
+          @click.prevent="goHomeByLogo"
+        >
+          Games
+        </p>
+      </v-gradient>
     </div>
   </nav>
   <main>
@@ -34,14 +37,13 @@ const goHomeByLogo = () => {
   </main>
 </template>
 
-<style lang="scss">
-:root {
-  accent-color: $color-pink-3;
-}
+<style lang="postcss">
+@import './assets/vars.css';
+
 body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-tap-highlight-color: transparent;
-  background: $color-black;
+  background: var(--color-black);
   margin: 0;
 }
 
@@ -50,9 +52,9 @@ main {
 }
 
 #app {
-  font-family: $font;
+  font-family: var(--font);
   text-align: center;
-  color: $color-white;
+  color: var(--color-white);
   max-width: 100vw;
 }
 
@@ -72,7 +74,7 @@ nav {
       left: 10vw;
       width: 30rem;
       height: 30rem;
-      background: $color-violet-3;
+      background: var(--color-violet-3);
       border-radius: 30% 80% 40% 20% / 40% 50% 60% 50%;
       z-index: -100;
       filter: blur(13px) opacity(0.4);
@@ -84,7 +86,7 @@ nav {
       right: 1vw;
       width: 30rem;
       height: 30rem;
-      background: $color-violet;
+      background: var(--color-violet);
       border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
       z-index: -100;
       filter: blur(13px) opacity(0.8);
@@ -92,7 +94,7 @@ nav {
 
     #circled-logo {
       cursor: pointer;
-      background: $gradient;
+      background: var(--gradient);
       border-radius: 100%;
       padding: 0.4rem 0.5rem;
       color: white;
@@ -103,8 +105,6 @@ nav {
     #text-logo {
       margin: 0;
       cursor: pointer;
-      @include bcg-for-text($gradient);
-      align-self: center;
     }
   }
 }

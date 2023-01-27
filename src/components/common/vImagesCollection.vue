@@ -28,13 +28,13 @@ const clickOnImage = (id: string) => {
       v-for="item in props.srcArray"
       :key="item._id"
       class="image-collection_item"
+      @click.prevent="clickOnImage(item._id)"
     >
       <img
         class="image-collection_item__image"
         :src="item.base_link"
         alt="image collection item"
         :width="cardDimension / 2"
-        @click.prevent="clickOnImage(item._id)"
       >
       <h2 class="image-collection_item__title">
         {{ item.ref_name.toUpperCase() }}
@@ -46,14 +46,14 @@ const clickOnImage = (id: string) => {
     class="image-collection_item image-collection_skeleton"
   />
 </template>
-<style lang="scss">
+<style lang="postcss">
 .image-collection {
   --title-height: 6rem;
   display: flex;
   gap: 1rem;
   align-items: flex-end;
   &_item {
-    border-radius: $border-prime;
+    border-radius: var(--border-prime);
     backdrop-filter: blur(3rem);
     cursor: pointer;
 
@@ -61,7 +61,7 @@ const clickOnImage = (id: string) => {
 
     display: flex;
     flex-direction: column;
-    border: 1px solid $color-violet;
+    border: 1px solid var(--color-violet);
     &__title {
       margin: 0;
       height: var(--title-height);
@@ -70,10 +70,10 @@ const clickOnImage = (id: string) => {
       align-items: center;
       justify-content: center;
 
-      font-family: $neon-font;
+      font-family: var(--neon-font);
     }
     &:hover {
-      background: $gradient;
+      background: var(--gradient);
     }
   }
   &_skeleton {

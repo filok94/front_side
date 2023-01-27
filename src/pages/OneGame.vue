@@ -9,6 +9,7 @@ import vTranistionGrop from "../components/common/vTransitionGroup.vue";
 import vPanel from "../components/common/vPanel.vue";
 import vFadeBorders from "../components/common/vFadeBorders.vue";
 import vBasePage from "./vBasePage.vue";
+import vGradient from "../components/common/vGradientText.vue";
 
 import { HTMLRef, IAnswersList } from "../types/testsTypes.interface";
 import { IGetQuestionsResponse } from "../api/gameController/games.api.interfaces";
@@ -110,9 +111,9 @@ const chooseQuestionToShowResults = (param: { index: number }) => {
             class="active_question card-head"
             vif
           >
-            <h2>
-              {{ currentBlock?.question }}
-            </h2>
+            <v-gradient>
+              <h2>{{ currentBlock?.question }}</h2>
+            </v-gradient>
           </v-panel>
           <transition
             :duration="300"
@@ -196,12 +197,7 @@ const chooseQuestionToShowResults = (param: { index: number }) => {
   </v-base-page>
 </template>
 
-<style lang="scss" scoped>
-@mixin game-skeleton-background {
-  background: $gradiend-skeleton;
-  border-radius: $border-prime;
-  animation: skeleton-movement 3s infinite linear;
-}
+<style lang="postcss" scoped>
 @keyframes skeleton-movement {
   0% {
     background-position: -100px;
@@ -213,19 +209,17 @@ const chooseQuestionToShowResults = (param: { index: number }) => {
   }
 }
 
-@mixin one_game_grid {
+.skeleton {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: start;
   gap: 2rem;
-}
-//static
-.skeleton {
-  @include one_game_grid();
   --skeleton-left-one: 7rem;
   --skeleton-left-two: 13rem;
   &-bcg {
-    @include game-skeleton-background();
+    background: var(--gradient-skeleton);
+    border-radius: var(--border-prime);
+    animation: skeleton-movement 3s infinite linear;
     max-width: 100%;
   }
   &-title {
@@ -242,7 +236,7 @@ const chooseQuestionToShowResults = (param: { index: number }) => {
   &_left_dropdown {
     margin-top: -2rem;
     height: var(--skeleton-left-two);
-    border-radius: 0 0 $border-prime $border-prime;
+    border-radius: 0 0 var(--border-prime) var(--border-prime);
   }
   &_right {
     transform: translateY(var(--skeleton-left-one));
@@ -254,24 +248,26 @@ h1.game-title {
   text-align: left;
   font-size: 4rem;
   font-weight: 600;
-  color: $color-violet-5;
+  color: var(--color-violet-5);
 }
 .game-wrapper {
-  @include one_game_grid();
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 2rem;
   grid-template-rows: 1fr;
 
   .active {
     width: 90%;
     &_question {
-      background-color: $color-dark-grey;
-      @include game-card-top();
+      background-color: var(--color-dark-grey);
+      position: relative;
+      z-index: 2;
+      min-height: 6rem;
       max-width: 100%;
-      h2 {
-        @include bcg-for-text($gradient);
-      }
     }
     &_answers {
-      border-radius: 0 0 $border-prime $border-prime;
+      border-radius: 0 0 var(--border-prime) var(--border-prime);
       margin-top: -1.1rem;
       position: relative;
       max-width: 100%;
@@ -287,7 +283,7 @@ h1.game-title {
           text-align: left;
           cursor: pointer;
           &:hover {
-            color: $color-grey;
+            color: var(--color-grey);
           }
         }
       }
@@ -306,7 +302,7 @@ h1.game-title {
     box-shadow: 0px 5px 10px 2px rgba(14, 14, 14, 0.2) inset;
 
     border-width: 1px;
-    border-radius: $border-prime;
+    border-radius: var(--border-prime);
 
     background: rgba(48, 45, 48, 0.86);
     backdrop-filter: blur(15px);
@@ -321,10 +317,10 @@ h1.game-title {
       &_item {
         z-index: 3;
         &:nth-of-type(odd) {
-          background: $darkest-violet;
+          background: var(--darkest-violet);
         }
         &:nth-of-type(even) {
-          background: $dark-violet;
+          background: var(--dark-violet);
         }
       }
     }

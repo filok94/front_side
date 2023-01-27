@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, Ref, ref } from "vue";
 import { onClickOutside, useEventListener } from "@vueuse/core";
 import vButton from "./vButton.vue";
+import vGradient from "./vGradientText.vue";
 
 const emit = defineEmits<{ (e: "closeModal", target: boolean): void }>();
 const props = defineProps<{
@@ -50,7 +51,9 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
       class="v-modal_inner"
     >
       <div class="v-modal_header">
-        <h1>{{ props.title }}</h1>
+        <v-gradient>
+          <h1>{{ props.title }}</h1>
+        </v-gradient>
         <button @click.prevent="props.isEasyClosable ? destroyModal() : confirmModal?.showModal()">
           X
         </button>
@@ -60,9 +63,9 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
         ref="confirmModal"
         class="v-modal_confirm"
       >
-        <h1>
-          Are you sure you want to close the window?
-        </h1>
+        <v-gradient>
+          <h1>Are you sure you want to close the window?</h1>
+        </v-gradient>
         <div
           class="v-modal_confirm_controller"
         >
@@ -84,21 +87,21 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
   </dialog>
 </template>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .v-modal {
-  border-radius: $border-prime;
-  background: $color-black;
+  border-radius: var(--border-prime);
+  background: var(--color-black);
   min-width: 40vw;
   min-height: 40vh;
   max-height: 90vh;
   overflow-y: scroll;
   padding: 0;
   border: none;
-  box-shadow: $shadow-black;
+  box-shadow: var(--shadow-black);
   scrollbar-width: none;
 
   &::backdrop {
-    background: $color-black;
+    background: var(--color-black);
     opacity: .5;
   }
   &_inner {
@@ -117,52 +120,52 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
   min-height: 2rem;
   z-index: 100;
 
-  box-shadow: $shadow-black;
-  background: $color-black;
+  box-shadow: var(--shadow-black);
+  background: var(--color-black);
 
   button {
     height: 4rem;
     width: 2rem;
     border: none;
-    border-radius: 0 $border-prime 0 $border-prime;
-    background: $color-red;
+    border-radius: 0 var(--border-prime) 0 var(--border-prime);
+    background: var(--color-red);
     cursor: pointer;
     &:hover {
-          opacity: .8;
-        }
-        &:active, &:disabled {
-            opacity: .6;
-            outline-color: $color-pink;
-        }
-        &:disabled {
-          cursor: default;
-        }
-        &:focus-visible {
-          outline-style: solid;
-          outline-color: $color-pink
-        }
+      opacity: .8;
+    }
+    &:active, &:disabled {
+      opacity: .6;
+    }
+    &:disabled {
+      cursor: default;
+    }
+    &:focus-visible {
+      outline-style: solid;
+    }
+    &:focus {
+      outline-color: var(--color-black);
+    }
 
   }
 }
 
 h1 {
-  @include bcg-for-text($gradient);
   text-align: left;
-  font-family: $neon-font;
+  font-family: var(--neon-font);
   font-size: 2.5rem;
   margin: 1.5rem;
 }
 
 .v-modal_confirm {
-  background: $color-black;
+  background: var(--color-black);
   border: none;
   width: 40vw;
-  border-radius: $border-prime;
-  box-shadow: $shadow-black;
+  border-radius: var(--border-prime);
+  box-shadow: var(--shadow-black);
 
   &::backdrop {
-    background: $color-black;
-    opacity: .8;
+    background: var(--color-black);
+    opacity: .4;
   }
 
   &_controller {

@@ -188,12 +188,12 @@ const minimizeImage = () => {
     </section>
   </vBasePage>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .avatars {
   &_computed-image {
     &_top {
       content: " ";
-      background: $color-grey;
+      background: var(--color-grey);
       width: calc(100% - (1rem * 2));
       height: 3rem;
       display: flex;
@@ -204,19 +204,19 @@ const minimizeImage = () => {
       .image_close {
         cursor: pointer;
         &:hover {
-          color: $color-dark-grey;
+          color: var(--color-dark-grey);
         }
         &:active {
-          color: $color-black;
+          color: var(--color-black);
         }
       }
     }
-    border: 0.3rem solid $color-grey;
+    border: 0.3rem solid var(--color-grey);
     position: fixed;
     top: 0;
     right: 1rem;
     backdrop-filter: blur(3rem);
-    border-radius: 0 0 $border-prime $border-prime;
+    border-radius: 0 0 var(--border-prime) var(--border-prime);
   }
   &__options {
     &_container {
@@ -227,27 +227,27 @@ const minimizeImage = () => {
       justify-content: space-evenly;
     }
     &__item {
-      background: $gradient;
-      border-radius: $border-prime;
+      background: var(--gradient);
+      border-radius: var(--border-prime);
       flex-basis: 12rem;
       flex-shrink: 2;
       display: flex;
       flex-direction: column;
       justify-content: start;
-      font-family: $neon-font;
-      box-shadow: $shadow-black;
+      font-family: var(--neon-font);
+      box-shadow: var(--shadow-black);
 
       h2 {
         margin: 1rem;
         font-size: 1rem;
       }
       &_chooser {
-        background: $color-violet;
+        background: var(--color-violet);
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 0;
-        border-radius: 0 0 $border-prime $border-prime;
+        border-radius: 0 0 var(--border-prime) var(--border-prime);
 
         button {
           cursor: pointer;
@@ -256,24 +256,24 @@ const minimizeImage = () => {
           width: 20%;
 
           border: none;
-          background: $color-violet-1;
+          background: var(--color-violet-1);
 
           &:active {
-            box-shadow: 0 0 7px 0.1px $color-black inset;
-            background: $color-violet;
+            box-shadow: 0 0 7px 0.1px var(--color-black) inset;
+            background: var(--color-violet);
           }
         }
         .button_right {
-          border-radius: 0 0 $border-prime 0;
+          border-radius: 0 0 var(--border-prime) 0;
         }
         .button_left {
-          border-radius: 0 0 0 $border-prime;
+          border-radius: 0 0 0 var(--border-prime);
         }
       }
       &_skeleton {
         height: 6rem;
         width: 12rem;
-        background: $gradiend-skeleton;
+        background: var(--gradient-skeleton);
         animation: skeleton-movement 6s infinite linear;
       }
     }

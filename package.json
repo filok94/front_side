@@ -28,7 +28,9 @@
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-vue": "^9.7.0",
-    "sass": "^1.49.9",
+    "postcss": "^8.4.20",
+    "postcss-custom-media": "^9.0.1",
+    "postcss-nested": "^6.0.0",
     "tslib": "^2.4.1",
     "vite": "^3.0.2"
   }

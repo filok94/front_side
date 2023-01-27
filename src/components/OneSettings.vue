@@ -69,7 +69,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="postcss">
 	.settings {
 		display: grid;
 		grid-gap: 2rem;
@@ -103,14 +103,13 @@ onUnmounted(() => {
 
 			&:hover {
 				p {
-					color: $color-pink-3;
+					color: var(--color-pink-3);
 				}
 			}
 
 			p {
 				margin: 0;
-				//font-size: 0.7rem;
-				color: $color-grey;
+				color: var(--color-grey);
 			}
 		}
 	}

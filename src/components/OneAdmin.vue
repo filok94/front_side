@@ -59,7 +59,7 @@ const titles = [ {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="postcss">
 .admin {
   width: 50%;
   max-width: 35rem;

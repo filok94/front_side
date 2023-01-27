@@ -10,6 +10,7 @@ import { HTMLRef } from "../types/testsTypes.interface";
 import VButton from "../components/common/vButton.vue";
 import { useRouter } from "vue-router";
 import { ROUTER_NAMES } from "../router";
+import vGradient from "../components/common/vGradientText.vue";
 
 const { activeGame, person, gameResult } = storeToRefs(useGamesStore());
 const gameStore = useGamesStore();
@@ -106,14 +107,18 @@ const endAndGoHome = () =>
         ref="content"
         class="result_content_person"
       >
-        <h2 class="result_content_person_title">
-          {{ person?.name }}
-        </h2>
+        <v-gradient>
+          <h2 class="result_content_person_title">
+            {{ person?.name }}
+          </h2>
+        </v-gradient>
         <h3 class="result_content_person_description">
           {{ person?.description }}
         </h3>
         <p class="result_content_person_count">
-          <span>{{ person?.count }}</span> из
+          <v-gradient>
+            <span>{{ person?.count }}</span> из
+          </v-gradient>
           {{ activeGame?.questions?.length }}
         </p>
         <div class="home-button">
@@ -136,29 +141,33 @@ const endAndGoHome = () =>
         <h3 class="result_content_answers_variant">
           Right: <span>{{ currentRightAnswer }}</span>
         </h3>
-        <h3
-          :class="{
-            result_content_answers_correct:
-              gameResult[props.indexToShow].is_right,
-            result_content_answers_incorrect:
-              !gameResult[props.indexToShow].is_right,
-          }"
+        <v-gradient
+          :gradient-color="gameResult[props.indexToShow].is_right ? 'gradient-green' : 'gradient-red'"
         >
-          {{ gameResult[props.indexToShow].is_right ? "Correct" : "Incorrect" }}
-        </h3>
+          <h3
+            :class="{
+              result_content_answers_correct:
+                gameResult[props.indexToShow].is_right,
+              result_content_answers_incorrect:
+                !gameResult[props.indexToShow].is_right,
+            }"
+          >
+            {{ gameResult[props.indexToShow].is_right ? "Correct" : "Incorrect" }}
+          </h3>
+        </v-gradient>
       </div>
     </transition>
   </v-panel>
 </template>
-<style lang="scss">
+<style lang="postcss">
 .result {
   &_close {
     display: flex;
     justify-content: end;
     div {
-      font-family: $neon-font;
+      font-family: var(--neon-font);
       cursor: pointer;
-      color: $color-grey;
+      color: var(--color-grey);
       user-select: none;
       &:active {
         opacity: 0.8;
@@ -175,18 +184,16 @@ const endAndGoHome = () =>
   &_content {
     &_person {
       &_title {
-        font-family: $neon-font;
+        font-family: var(--neon-font);
         font-size: 2.5rem;
-        @include bcg-for-text($gradient);
       }
       &_description {
-        color: $color-grey;
+        color: var(--color-grey);
       }
       &_count {
         span {
           font-size: 3rem;
           font-weight: bold;
-          @include bcg-for-text($gradient-green);
         }
       }
     }
@@ -196,21 +203,19 @@ const endAndGoHome = () =>
         font-weight: bold;
       }
       &_variant {
-        color: $color-pink-3;
-        font-family: $neon-font;
+        color: var(--color-pink-3);
+        font-family: var(--neon-font);
         span {
           font-size: 1rem;
-          font-family: $font;
-          color: $color-grey;
+          font-family: var(--font);
+          color: var(--color-grey);
         }
       }
       &_correct {
-        font-family: $neon-font;
-        @include bcg-for-text($gradient-green);
+        font-family: var(--neon-font);
       }
       &_incorrect {
-        font-family: $neon-font;
-        @include bcg-for-text($gradient-red);
+        font-family: var(--neon-font);
       }
     }
   }
