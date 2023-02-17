@@ -1,21 +1,23 @@
 <script lang="ts" setup>
-import { onMounted, ref, watch } from "vue";
-import { ANIMATIONS_RANGE,
-	useAnimation } from "../Helpers/Animations/CommonAnimations";
-import { HTMLRef } from "../types/testsTypes.interface";
+import { onMounted, ref, watch } from 'vue'
+import {
+  ANIMATIONS_RANGE,
+  useAnimation
+} from '../Helpers/Animations/CommonAnimations'
+import { HTMLRef } from '../types/testsTypes.interface'
 
 const props = defineProps<{
   title: string;
-}>();
-const { animateFrom } = useAnimation();
-const title: HTMLRef = ref(null);
+}>()
+const { animateFrom } = useAnimation()
+const title: HTMLRef = ref(null)
 watch(
-	() => props.title,
-	() => {
-		animateFrom(title, "fromLeft", ANIMATIONS_RANGE.VERY_LOW);
-	}
-);
-onMounted(() => animateFrom(title, "fromLeft", ANIMATIONS_RANGE.VERY_LOW));
+  () => props.title,
+  () => {
+    animateFrom(title, 'fromLeft', ANIMATIONS_RANGE.VERY_LOW)
+  }
+)
+onMounted(() => animateFrom(title, 'fromLeft', ANIMATIONS_RANGE.VERY_LOW))
 </script>
 <template>
   <div class="base_page">

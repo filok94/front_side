@@ -1,51 +1,51 @@
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useEventListener } from "@vueuse/core";
-import { ANIMATIONS_RANGE,
-	useAnimation } from "../Helpers/Animations/CommonAnimations";
-import { loginPage } from "../locales/loginPage";
-import { ROUTER_NAMES } from "../router";
+import { onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useEventListener } from '@vueuse/core'
+import {
+  ANIMATIONS_RANGE,
+  useAnimation
+} from '../Helpers/Animations/CommonAnimations'
+import { loginPage } from '../locales/loginPage'
+import { ROUTER_NAMES } from '../router'
 
-const route = useRoute();
+const route = useRoute()
 
 // key_arrows directions
-let arrowDirections = (e: KeyboardEvent) => {
-	if (!document.activeElement?.classList.contains("v_form_input")) {
-		if (e.code == "ArrowLeft") {
-			router.push({
-				name: ROUTER_NAMES.login.sign_in 
-			});
-		}
-		else if (e.code == "ArrowRight") {
-			router.push({
-				name: ROUTER_NAMES.login.sign_up 
-			});
-		}
-	}
-};
+const arrowDirections = (e: KeyboardEvent) => {
+  if (!document.activeElement?.classList.contains('v_form_input')) {
+    if (e.code === 'ArrowLeft') {
+      router.push({
+        name: ROUTER_NAMES.login.sign_in
+      })
+    } else if (e.code === 'ArrowRight') {
+      router.push({
+        name: ROUTER_NAMES.login.sign_up
+      })
+    }
+  }
+}
 
-useEventListener(document, "keydown", (ev) => arrowDirections(ev));
-const router = useRouter();
+useEventListener(document, 'keydown', (ev) => arrowDirections(ev))
+const router = useRouter()
 onMounted(() => {
-	router.push({
-		name: ROUTER_NAMES.login.sign_in,
-	});
-});
-const { animateFrom, animateTo } = useAnimation();
+  router.push({
+    name: ROUTER_NAMES.login.sign_in
+  })
+})
+const { animateFrom, animateTo } = useAnimation()
 const panelEntering = (el: HTMLDivElement) => {
-	if (route.name == ROUTER_NAMES.login.sign_in) {
-		animateFrom(el, "fromLeft", ANIMATIONS_RANGE.LOW);
-	}
-	else {
-		animateFrom(el, "fromRight", ANIMATIONS_RANGE.LOW);
-	}
-};
+  if (route.name === ROUTER_NAMES.login.sign_in) {
+    animateFrom(el, 'fromLeft', ANIMATIONS_RANGE.LOW)
+  } else {
+    animateFrom(el, 'fromRight', ANIMATIONS_RANGE.LOW)
+  }
+}
 const panelAway = (el: HTMLDivElement) => {
-	route.name == ROUTER_NAMES.login.sign_in
-		? animateTo(el, "toRight", ANIMATIONS_RANGE.LOW)
-		: animateTo(el, "toLeft", ANIMATIONS_RANGE.LOW);
-};
+  route.name === ROUTER_NAMES.login.sign_in
+    ? animateTo(el, 'toRight', ANIMATIONS_RANGE.LOW)
+    : animateTo(el, 'toLeft', ANIMATIONS_RANGE.LOW)
+}
 </script>
 
 <template>

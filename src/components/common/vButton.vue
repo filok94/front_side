@@ -1,47 +1,44 @@
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-import { useEventListener } from "@vueuse/core";
-import gsap from "gsap";
+import { reactive, ref } from 'vue'
+import { useEventListener } from '@vueuse/core'
+import gsap from 'gsap'
 
-let props = defineProps<{
+const props = defineProps<{
   disable?: boolean;
-  purpose: "cancel" | "primary" | "white";
-  size?: "small" | "medium" | "large";
+  purpose: 'cancel' | 'primary' | 'white';
+  size?: 'small' | 'medium' | 'large';
   isLoading?: boolean;
-}>();
+}>()
 
-let emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
-  (ev: "entered", voice: KeyboardEvent): void;
-}>();
+const emit = defineEmits<{(ev: 'entered', voice: KeyboardEvent): void; }>()
 
-let buttonRef = ref<null | Element>(null);
+const buttonRef = ref<null | Element>(null)
 
-let mouseHoverEvent = (event: string) => {
-	let borders = [ 30, 35 ];
-	let style = borders[1];
-	style = event == "mouseenter" && !props.disable ? borders[1] : borders[0];
-	gsap.to(buttonRef.value, {
-		borderRadius: style,
-		duration: 0.3,
-		ease: "ease",
-	});
-};
+const mouseHoverEvent = (event: string) => {
+  const borders = [30, 35]
+  let style = borders[1]
+  style = event === 'mouseenter' && !props.disable ? borders[1] : borders[0]
+  gsap.to(buttonRef.value, {
+    borderRadius: style,
+    duration: 0.3,
+    ease: 'ease'
+  })
+}
 
-useEventListener(document, "keyup", (ev: KeyboardEvent) => {
-	ev.preventDefault();
-	ev.code == "Enter" ? emit("entered", ev) : undefined;
-});
+useEventListener(document, 'keyup', (ev: KeyboardEvent) => {
+  ev.preventDefault()
+  if (ev.code === 'Enter') emit('entered', ev)
+})
 
 const dynamicClasses = reactive({
-	v_button_cancel: props.purpose == "cancel",
-	v_button_primary: props.purpose == "primary",
-	v_button_white: props.purpose == "white",
-	v_button_small: props.size == "small",
-	v_button_medium: props.size == "medium" || props.size == undefined,
-	v_button_large: props.size == "large",
-	v_button_loading: props.isLoading,
-});
+  v_button_cancel: props.purpose === 'cancel',
+  v_button_primary: props.purpose === 'primary',
+  v_button_white: props.purpose === 'white',
+  v_button_small: props.size === 'small',
+  v_button_medium: props.size === 'medium' || props.size === undefined,
+  v_button_large: props.size === 'large',
+  v_button_loading: props.isLoading
+})
 </script>
 
 <template>

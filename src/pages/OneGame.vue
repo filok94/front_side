@@ -1,102 +1,108 @@
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
-import { ref, onMounted, reactive, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { ROUTER_NAMES } from "../router";
-import { useGamesStore } from "../stores/games_store";
+import { storeToRefs } from 'pinia'
+import { ref, onMounted, reactive, computed, onUnmounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { ROUTER_NAMES } from '../router'
+import { useGamesStore } from '../stores/games_store'
 
-import vTranistionGrop from "../components/common/vTransitionGroup.vue";
-import vPanel from "../components/common/vPanel.vue";
-import vFadeBorders from "../components/common/vFadeBorders.vue";
-import vBasePage from "./vBasePage.vue";
-import vGradient from "../components/common/vGradientText.vue";
+import vTranistionGrop from '../components/common/vTransitionGroup.vue'
+import vPanel from '../components/common/vPanel.vue'
+import vFadeBorders from '../components/common/vFadeBorders.vue'
+import vBasePage from './vBasePage.vue'
+import vGradient from '../components/common/vGradientText.vue'
 
-import { HTMLRef, IAnswersList } from "../types/testsTypes.interface";
-import { IGetQuestionsResponse } from "../api/gameController/games.api.interfaces";
+import { HTMLRef, IAnswersList } from '../types/testsTypes.interface'
+import { IGetQuestionsResponse } from '../api/gameController/games.api.interfaces'
 
-import { cardFadingWithText, cardGoLeft } from "../Helpers/Animations/AnimationsGame";
-import { ANIMATIONS_RANGE, useAnimation } from "../Helpers/Animations/CommonAnimations";
+import { cardFadingWithText, cardGoLeft } from '../Helpers/Animations/AnimationsGame'
+import { ANIMATIONS_RANGE, useAnimation } from '../Helpers/Animations/CommonAnimations'
 
-const router = useRouter();
-const route = useRoute();
+const router = useRouter()
+const route = useRoute()
 
 onMounted(async () => {
-	await gamesStore.getAllGames();
-	await gamesStore.setActiveGame(String(route.params.gameTitle));
-});
-const { activeGame, anserwsList } = storeToRefs(useGamesStore());
-const gamesStore = useGamesStore();
+  await gamesStore.getAllGames()
+  await gamesStore.setActiveGame(String(route.params.gameTitle))
+})
+const { activeGame, anserwsList } = storeToRefs(useGamesStore())
+const gamesStore = useGamesStore()
 const calcualte = async () => {
-	await gamesStore.pushToCalculate({
-		gameId: activeGame.value?.id as string,
-		answers: anserwsList.value,
-	});
-	router.push({
-		name: ROUTER_NAMES.test.testResult 
-	});
-};
+  await gamesStore.pushToCalculate({
+    gameId: activeGame.value?.id as string,
+    answers: anserwsList.value
+  })
+  router.push({
+    name: ROUTER_NAMES.test.testResult
+  })
+}
 const nextQuestion = () => {
-	let nextStep = Number(route.query.step) + 1;
-	router.push({
-		name: ROUTER_NAMES.test.root,
-		query: {
-			step: nextStep 
-		},
-	});
-};
-const activeAnswer: HTMLRef = ref(null);
+  const nextStep = Number(route.query.step) + 1
+  router.push({
+    name: ROUTER_NAMES.test.root,
+    query: {
+      step: nextStep
+    }
+  })
+}
+const activeAnswer: HTMLRef = ref(null)
 const chooseAnswer = (param: IAnswersList) => {
-	if (Number(route.query.step) - 1 !== activeGame.value?.questions?.length) {
-		let isFinal = param.index + 1 == activeGame.value?.questions?.length;
-		cardGoLeft(activeAnswer.value, isFinal);
+  if (Number(route.query.step) - 1 !== activeGame.value?.questions?.length) {
+    const isFinal = param.index + 1 === activeGame.value?.questions?.length
+    cardGoLeft(activeAnswer.value, isFinal)
 
-		isAnimate.value = true;
-		setTimeout(() => {
-			isAnimate.value = false;
-			previousBlocks.push(currentBlock.value);
-			isFinal || nextQuestion();
-		}, 400);
-		gamesStore.pushAnswerToList(param);
-		if (Number(route.query.step) === activeGame.value?.questions?.length) {
-			calcualte();
-		}
-	}
-};
+    isAnimate.value = true
+    setTimeout(() => {
+      isAnimate.value = false
+      previousBlocks.push(currentBlock.value)
+      isFinal || nextQuestion()
+    }, 400)
+    gamesStore.pushAnswerToList(param)
+    if (Number(route.query.step) === activeGame.value?.questions?.length) {
+      calcualte()
+    }
+  }
+}
 
 const currentBlock = computed(
-	() =>
-		(activeGame.value?.questions as IGetQuestionsResponse[])[
-			Number(route.query.step) - 1
-		]
-);
-const previousBlocks = reactive<IGetQuestionsResponse[]>([]);
+  () =>
+    (activeGame.value?.questions as IGetQuestionsResponse[])[
+      Number(route.query.step) - 1
+    ]
+)
+const previousBlocks = reactive<IGetQuestionsResponse[]>([])
 const fillThePrevBlock = () => {
-	if (activeGame.value?.questions?.length != previousBlocks.length) {
-		activeGame.value?.questions?.forEach((e) => previousBlocks.push(e));
-	}
-};
+  if (activeGame.value?.questions?.length !== previousBlocks.length) {
+    activeGame.value?.questions?.forEach((e) => previousBlocks.push(e))
+  }
+}
 
-const setResultsShowingToNull = () => (indexToShowResult.value = null);
+const setResultsShowingToNull = () => (indexToShowResult.value = null)
 
-//animations
-const { animateFrom } = useAnimation();
+// animations
+const { animateFrom } = useAnimation()
 
-const isAnimate = ref(false);
-const onQuestionLeave = (el: HTMLElement) => cardFadingWithText(el);
+const isAnimate = ref(false)
+const onQuestionLeave = (el: HTMLElement) => cardFadingWithText(el)
 const resultEnter = (el: HTMLElement) =>
-	animateFrom(el, "fromTop", ANIMATIONS_RANGE.HIGH);
+  animateFrom(el, 'fromTop', ANIMATIONS_RANGE.HIGH)
 
-const previousRefs = ref<HTMLElement[]>([]);
-const indexToShowResult = ref<null | number>(null);
+const previousRefs = ref<HTMLElement[]>([])
+const indexToShowResult = ref<null | number>(null)
 const chooseQuestionToShowResults = (param: { index: number }) => {
-	param.index == indexToShowResult.value
-		? (indexToShowResult.value = null)
-		: (indexToShowResult.value = param.index);
-};
+  param.index === indexToShowResult.value
+    ? (indexToShowResult.value = null)
+    : (indexToShowResult.value = param.index)
+}
+
+onUnmounted(() => {
+  gamesStore.activeGame = null
+})
 </script>
 
 <template>
-  <v-base-page :title="activeGame?.title as string">
+  <v-base-page
+    :title="(activeGame?.title as string)"
+  >
     <div
       v-if="activeGame"
       class="main-game-content"
@@ -109,7 +115,6 @@ const chooseQuestionToShowResults = (param: { index: number }) => {
         >
           <v-panel
             class="active_question card-head"
-            vif
           >
             <v-gradient>
               <h2>{{ currentBlock?.question }}</h2>

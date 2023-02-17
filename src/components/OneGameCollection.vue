@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import Loading from "./OneLoading.vue";
-import { AnimationFlickeringOnText } from "../Helpers/Animations/GameCollection";
-import { useGamesStore } from "../stores/games_store";
-import { ROUTER_NAMES } from "../router";
-import vCard from "./common/vCard.vue";
-import { HTMLRef } from "../types/testsTypes.interface";
-import vGradient from "./common/vGradientText.vue";
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import Loading from './OneLoading.vue'
+import { AnimationFlickeringOnText } from '../Helpers/Animations/GameCollection'
+import { useGamesStore } from '../stores/games_store'
+import { ROUTER_NAMES } from '../router'
+import vCard from './common/vCard.vue'
+import { HTMLRef } from '../types/testsTypes.interface'
+import vGradient from './common/vGradientText.vue'
 
-const router = useRouter();
-const gamesStore = useGamesStore();
-const gamesList = computed(() => gamesStore.games);
+const router = useRouter()
+const gamesStore = useGamesStore()
+const gamesList = computed(() => gamesStore.games)
 
 const goToTest = (i: number) => {
-	if (gamesList.value) {
-		router.push({
-			name: ROUTER_NAMES.test.root,
-			params: {
-				gameTitle: gamesList.value[i].title 
-			},
-		});
-	}
-};
+  if (gamesList.value) {
+    router.push({
+      name: ROUTER_NAMES.test.root,
+      params: {
+        gameTitle: gamesList.value[i].title
+      }
+    })
+  }
+}
 
-let brokenLetter: HTMLRef = ref(null);
-onMounted(() => AnimationFlickeringOnText(brokenLetter));
+const brokenLetter: HTMLRef = ref(null)
+onMounted(() => AnimationFlickeringOnText(brokenLetter))
 </script>
 
 <template>

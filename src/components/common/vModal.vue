@@ -1,44 +1,43 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, Ref, ref } from "vue";
-import { onClickOutside, useEventListener } from "@vueuse/core";
-import vButton from "./vButton.vue";
-import vGradient from "./vGradientText.vue";
+import { onMounted, onUnmounted, Ref, ref } from 'vue'
+import { onClickOutside, useEventListener } from '@vueuse/core'
+import vButton from './vButton.vue'
+import vGradient from './vGradientText.vue'
 
-const emit = defineEmits<{ (e: "closeModal", target: boolean): void }>();
+const emit = defineEmits<{(e: 'closeModal', target: boolean): void }>()
 const props = defineProps<{
   title: string,
   isEasyClosable: boolean
-}>();
+}>()
 
-const vModal: Ref<HTMLDialogElement | null> = ref(null);
-const vModalInner: Ref<HTMLDialogElement | null> = ref(null);
-const confirmModal: Ref<HTMLDialogElement | null> = ref(null);
-  
+const vModal: Ref<HTMLDialogElement | null> = ref(null)
+const vModalInner: Ref<HTMLDialogElement | null> = ref(null)
+const confirmModal: Ref<HTMLDialogElement | null> = ref(null)
+
 const destroyModal = () => {
-	vModal.value?.close();
-	emit("closeModal", true);
-};
+  vModal.value?.close()
+  emit('closeModal', true)
+}
 
 onMounted(() => {
-	vModal.value?.showModal();
-});
+  vModal.value?.showModal()
+})
 onUnmounted(() => {
-	vModal.value?.close();
-});
+  vModal.value?.close()
+})
 
-useEventListener(document,"keydown", (ev: KeyboardEvent) => {
-	if (ev.code == "Escape" && !confirmModal.value?.open) {
-		ev.preventDefault();
-		props.isEasyClosable ? destroyModal() : confirmModal.value?.showModal();  
-	}
+useEventListener(document, 'keydown', (ev: KeyboardEvent) => {
+  if (ev.code === 'Escape' && !confirmModal.value?.open) {
+    ev.preventDefault()
+    props.isEasyClosable ? destroyModal() : confirmModal.value?.showModal()
+  }
+})
 
-});
+onClickOutside(vModalInner, () =>
+  props.isEasyClosable ? destroyModal() : confirmModal.value?.showModal()
+)
 
-onClickOutside(vModalInner, () => 
-	props.isEasyClosable ? destroyModal() : confirmModal.value?.showModal()
-);
-
-const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmModal.value?.close();
+const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmModal.value?.close()
 
 </script>
 <template>

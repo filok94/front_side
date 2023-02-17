@@ -1,91 +1,91 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { computed, onMounted, ref, watch } from "vue";
-import { useGamesStore } from "../stores/games_store";
-import vPanel from "../components/common/vPanel.vue";
-import { watchOnce } from "@vueuse/core";
-import { ANIMATIONS_RANGE,
-	useAnimation } from "../Helpers/Animations/CommonAnimations";
-import { HTMLRef } from "../types/testsTypes.interface";
-import VButton from "../components/common/vButton.vue";
-import { useRouter } from "vue-router";
-import { ROUTER_NAMES } from "../router";
-import vGradient from "../components/common/vGradientText.vue";
+import { storeToRefs } from 'pinia'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useGamesStore } from '../stores/games_store'
+import vPanel from '../components/common/vPanel.vue'
+import { watchOnce } from '@vueuse/core'
+import {
+  ANIMATIONS_RANGE,
+  useAnimation
+} from '../Helpers/Animations/CommonAnimations'
+import { HTMLRef } from '../types/testsTypes.interface'
+import VButton from '../components/common/vButton.vue'
+import { useRouter } from 'vue-router'
+import { ROUTER_NAMES } from '../router'
+import vGradient from '../components/common/vGradientText.vue'
 
-const { activeGame, person, gameResult } = storeToRefs(useGamesStore());
-const gameStore = useGamesStore();
-const router = useRouter();
+const { activeGame, person, gameResult } = storeToRefs(useGamesStore())
+const gameStore = useGamesStore()
+const router = useRouter()
 
 // eslint-disable-next-line no-unused-vars
-const emit = defineEmits<{
-  (e: "fillThePreviousBlock", value: boolean): void;
-  (e: "closeResults", value: boolean): void;
-}>();
+const emit = defineEmits<{(e: 'fillThePreviousBlock', value: boolean): void;
+                          (e: 'closeResults', value: boolean): void; }>()
 const props = withDefaults(
-	defineProps<{
+  defineProps<{
     indexToShow: number | null;
   }>(),
-	{
-		indexToShow: null,
-	}
-);
-const { animateFrom, animateTo } = useAnimation();
+  {
+    indexToShow: null
+  }
+)
+const { animateFrom, animateTo } = useAnimation()
 onMounted(async () => {
-	await gameStore.setResultData(activeGame?.value?.id as string);
-	emit("fillThePreviousBlock", true);
-});
-const skeletonPosition = ref(0);
-let skeletonLoader = computed(() => `${ skeletonPosition.value }deg`);
-let interval = setInterval(() => {
-	skeletonPosition.value += 1;
-}, 1);
+  await gameStore.setResultData(activeGame?.value?.id as string)
+  emit('fillThePreviousBlock', true)
+})
+const skeletonPosition = ref(0)
+const skeletonLoader = computed(() => `${skeletonPosition.value}deg`)
+const interval = setInterval(() => {
+  skeletonPosition.value += 1
+}, 1)
 watchOnce(person, (nV) => {
-	if (nV) {
-		clearInterval(interval);
-	}
-});
-const content: HTMLRef = ref(null);
-const contentResult: HTMLRef = ref(null);
+  if (nV) {
+    clearInterval(interval)
+  }
+})
+const content: HTMLRef = ref(null)
+const contentResult: HTMLRef = ref(null)
 const contentEnter = (el: HTMLElement) => {
-	content.value != null
-		? animateFrom(el, "fromLeft", ANIMATIONS_RANGE.LOW)
-		: animateFrom(el, "fromRight", ANIMATIONS_RANGE.LOW);
-};
+  content.value != null
+    ? animateFrom(el, 'fromLeft', ANIMATIONS_RANGE.LOW)
+    : animateFrom(el, 'fromRight', ANIMATIONS_RANGE.LOW)
+}
 const contentLeave = (el: HTMLElement) =>
-	content.value != null
-		? animateTo(el, "toLeft", ANIMATIONS_RANGE.LOW)
-		: animateTo(el, "toRight", ANIMATIONS_RANGE.LOW);
+  content.value != null
+    ? animateTo(el, 'toLeft', ANIMATIONS_RANGE.LOW)
+    : animateTo(el, 'toRight', ANIMATIONS_RANGE.LOW)
 
 const currentRightAnswer = computed(() => {
-	if (activeGame.value?.questions && typeof props.indexToShow == "number") {
-		return activeGame.value.questions[props.indexToShow as number].answers[
-			gameResult.value[props.indexToShow as number].right_answer
-		];
-	}
-	return null;
-});
+  if (activeGame.value?.questions && typeof props.indexToShow === 'number') {
+    return activeGame.value.questions[props.indexToShow as number].answers[
+      gameResult.value[props.indexToShow as number].right_answer
+    ]
+  }
+  return null
+})
 
 watch(props, (nV) =>
-	nV.indexToShow != null && content.value == null
-		? animateFrom(contentResult, "fromTop", ANIMATIONS_RANGE.VERY_LOW)
-		: null
-);
+  nV.indexToShow != null && content.value == null
+    ? animateFrom(contentResult, 'fromTop', ANIMATIONS_RANGE.VERY_LOW)
+    : null
+)
 const currentUserAnswer = computed(() => {
-	if (activeGame.value?.questions && typeof props.indexToShow == "number") {
-		return activeGame.value.questions[props.indexToShow as number].answers[
-			gameResult.value[props.indexToShow as number].user_answer
-		];
-	} 
-	return null;
-});
+  if (activeGame.value?.questions && typeof props.indexToShow === 'number') {
+    return activeGame.value.questions[props.indexToShow as number].answers[
+      gameResult.value[props.indexToShow as number].user_answer
+    ]
+  }
+  return null
+})
 
 const endAndGoHome = () =>
-	router.push({
-		name: ROUTER_NAMES.main,
-		params: {
-			userId: window.localStorage.getItem("user") 
-		},
-	});
+  router.push({
+    name: ROUTER_NAMES.main,
+    params: {
+      userId: window.localStorage.getItem('user')
+    }
+  })
 </script>
 <template>
   <v-panel

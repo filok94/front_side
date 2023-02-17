@@ -1,107 +1,105 @@
 <script setup lang="ts">
-import { reactive, onMounted, ref, computed } from "vue";
-import vInput from "./common/vInput.vue";
-import vButton from "./common/vButton.vue";
-import onePickPerson from "./OnePickPerson.vue";
-import { useAdmin } from "../stores/admin_store";
+import { reactive, onMounted, ref, computed } from 'vue'
+import vInput from './common/vInput.vue'
+import vButton from './common/vButton.vue'
+import onePickPerson from './OnePickPerson.vue'
+import { useAdmin } from '../stores/admin_store'
 
 const props = defineProps<{
     questionsNumber: number
-}>();
-const emit = defineEmits<{
-  (ev: "gameDone", isDone: boolean): void
-}>();
+}>()
+const emit = defineEmits<{(ev: 'gameDone', isDone: boolean): void }>()
 
-const gameDone = (ev: boolean) => emit("gameDone", ev);
-const adminStore = useAdmin();
+const gameDone = (ev: boolean) => emit('gameDone', ev)
+const adminStore = useAdmin()
 
 const steps = reactive([
-	{
-		title: "Write down your game's info",
-		stepShortName: "Info",
-		inputs: [
-			{
-				label: "Title",
-				value: ""
-			},
-			{
-				label: "Description",
-				value: ""
-			},
-			{
-				label: "Link",
-				value: ""
-			}
-		]
-	}
-]);
+  {
+    title: "Write down your game's info",
+    stepShortName: 'Info',
+    inputs: [
+      {
+        label: 'Title',
+        value: '1'
+      },
+      {
+        label: 'Description',
+        value: '1'
+      },
+      {
+        label: 'Link',
+        value: '1'
+      }
+    ]
+  }
+])
 
-const isRightValues = reactive<number[]>(Array(9).fill(0));
+const isRightValues = reactive<number[]>(Array(9).fill(0))
 
-const currentStep = ref(0);
+const currentStep = ref(0)
 
 const jumpToStep = (stepNumber: number) => {
-	currentStep.value = stepNumber;
-};
+  currentStep.value = stepNumber
+}
 
 onMounted(() => {
-	for (let i = 0; i < props.questionsNumber; i++) {
-		steps.push({
-			title: `Write down question ${ i + 1 } and it's answers`,
-			stepShortName: `${ i + 1 }`,
-			inputs: [
-				{
-					label: `Question ${ i + 1 }`,
-					value: ""
-				},
-				{
-					label: "Answer 1",
-					value: ""
-				},
-				{
-					label: "Answer 2",
-					value: ""
-				},
-				{
-					label: "Answer 3",
-					value: ""
-				},
-				{
-					label: "Answer 4",
-					value: ""
-				}
-			]
-		});
-	}
-});
+  for (let i = 0; i < props.questionsNumber; i++) {
+    steps.push({
+      title: `Write down question ${i + 1} and it's answers`,
+      stepShortName: `${i + 1}`,
+      inputs: [
+        {
+          label: `Question ${i + 1}`,
+          value: '1'
+        },
+        {
+          label: 'Answer 1',
+          value: '1'
+        },
+        {
+          label: 'Answer 2',
+          value: '1'
+        },
+        {
+          label: 'Answer 3',
+          value: '1'
+        },
+        {
+          label: 'Answer 4',
+          value: '1'
+        }
+      ]
+    })
+  }
+})
 
 const allInputsAreFilled = computed(() => {
-	let allValues: string[] = [];
-	steps.forEach(step => step.inputs.forEach(e => allValues.push(e.value)));
+  const allValues: string[] = []
+  steps.forEach(step => step.inputs.forEach(e => allValues.push(e.value)))
 
-	return allValues.filter(e => e === "").length === 0 &&
+  return allValues.filter(e => e === '').length === 0 &&
     isRightValues.length === steps.length &&
-    isRightValues.slice(1).filter(e => e === undefined).length === 0;
-});
+    isRightValues.slice(1).filter(e => e === undefined).length === 0
+})
 
-const createGamesisActive = ref(true);
+const createGamesisActive = ref(true)
 const goToPersonPick = () => {
-	const test_data = steps.slice(1).map((e, index) => {
-		return {
-			question: e.inputs[0].value,
-			answers: e.inputs.slice(1).map(a => a.value),
-			right_answer: isRightValues.slice(1)[index],
-			index
-		};
-	});
-	adminStore.addInfoToGame( {
-		title: steps[0].inputs[0].value,
-		description: steps[0].inputs[1].value,
-		link: steps[0].inputs[2].value,
-		test_data
-	});
-	createGamesisActive.value = !createGamesisActive.value;
-};
+  const testData = steps.slice(1).map((e, index) => {
+    return {
+      question: e.inputs[0].value,
+      answers: e.inputs.slice(1).map(a => a.value),
+      right_answer: isRightValues.slice(1)[index],
+      index
+    }
+  })
+  adminStore.addInfoToGame({
+    title: steps[0].inputs[0].value,
+    description: steps[0].inputs[1].value,
+    link: steps[0].inputs[2].value,
+    test_data: testData
+  })
+  createGamesisActive.value = !createGamesisActive.value
+}
 
 </script>
 <template>
@@ -137,7 +135,7 @@ const goToPersonPick = () => {
           :key="index"
           class="create-step_input"
         >
-          <vInput 
+          <vInput
             v-model="i.value"
             :label="i.label"
             :type="'text'"
@@ -193,7 +191,7 @@ const goToPersonPick = () => {
     }
 
     &_body {
-        
+
         display: grid;
         grid-template-rows: repeat(3, .1fr);
         width: 100%;
@@ -204,7 +202,7 @@ const goToPersonPick = () => {
              font-family: var(--neon-font);
              color: var(--color-pink-3);
         }
-        
+
         &_main {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -221,7 +219,7 @@ const goToPersonPick = () => {
         padding: .3rem;
 
         cursor: pointer;
-        
+
         background: var(--color-pink);
         color: var(--color-dark-grey);
 
@@ -278,7 +276,7 @@ const goToPersonPick = () => {
     z-index: 10;
     position: fixed;
     bottom: 10rem;
-    
+
     box-shadow: 0px 0px 65px 18px var(--color-violet);
   }
 </style>

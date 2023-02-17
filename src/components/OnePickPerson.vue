@@ -1,58 +1,56 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, reactive } from "vue";
-import { postCreateGame } from "../api/gameController/games.api";
-import { useAdmin } from "../stores/admin_store";
-import { useGamesStore } from "../stores/games_store";
-import vButton from "./common/vButton.vue";
+import { computed, onMounted, onUnmounted, reactive } from 'vue'
+import { postCreateGame } from '../api/gameController/games.api'
+import { useAdmin } from '../stores/admin_store'
+import { useGamesStore } from '../stores/games_store'
+import vButton from './common/vButton.vue'
 
-const adminStore = useAdmin();
-const gameStore = useGamesStore();
+const adminStore = useAdmin()
+const gameStore = useGamesStore()
 
-const persons = computed(() => adminStore.persons);
+const persons = computed(() => adminStore.persons)
 
 onMounted(async () => {
-	await adminStore.getAllPersons();
-});
+  await adminStore.getAllPersons()
+})
 
 onUnmounted(async () => {
-	await gameStore.getAllGames();
-});
+  await gameStore.getAllGames()
+})
 
 const personsDevidedByCount = computed(() => {
-	const counts = [ ...Array(9).keys() ];
-	const countObject = [];
+  const counts = [...Array(9).keys()]
+  const countObject = []
 
-	for (const count of counts) {
-		countObject[count] = persons.value.filter(e => e.count === count);
-	}
-  
-	return countObject;
-}); 
+  for (const count of counts) {
+    countObject[count] = persons.value.filter(e => e.count === count)
+  }
 
-const selectedPersons = reactive<string[]>([]);
-const allPersonsAreSelected = computed(() => selectedPersons.filter(e => typeof e === "string").length === personsDevidedByCount.value.length);
+  return countObject
+})
 
-const emit = defineEmits<{
-  (ev: "gameDone", isDone: boolean): void
-}>();
+const selectedPersons = reactive<string[]>([])
+const allPersonsAreSelected = computed(() => selectedPersons.filter(e => typeof e === 'string').length === personsDevidedByCount.value.length)
+
+const emit = defineEmits<{(ev: 'gameDone', isDone: boolean): void}>()
 
 const confirmPersons = async () => {
-	adminStore.addPersonsToGame(selectedPersons);
-	if (adminStore.gameInfo) {
-		await postCreateGame({
-			title: adminStore.gameInfo?.title,
-			description: adminStore.gameInfo?.description,
-			link: adminStore.gameInfo?.link,
-			test_data: adminStore.gameInfo.test_data,
-			persons: adminStore.personsToGame
-		});
-	}
-	emit("gameDone", true);
-};
+  adminStore.addPersonsToGame(selectedPersons)
+  if (adminStore.gameInfo) {
+    await postCreateGame({
+      title: adminStore.gameInfo?.title,
+      description: adminStore.gameInfo?.description,
+      link: adminStore.gameInfo?.link,
+      test_data: adminStore.gameInfo.test_data,
+      persons: adminStore.personsToGame
+    })
+  }
+  emit('gameDone', true)
+}
 
 const checkPerson = (data: {index: number, value: string}) => {
-	selectedPersons[data.index] = data.value;
-};
+  selectedPersons[data.index] = data.value
+}
 
 </script>
 <template>
@@ -150,7 +148,7 @@ const checkPerson = (data: {index: number, value: string}) => {
     right: 0;
     left: 0;
     margin: 0 auto;
-    
+
     box-shadow: 0px 0px 65px 18px var(--color-violet);
   }
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { gradientColor = "gradient" } = defineProps<{
-  gradientColor?: "gradient" | "gradient-green" | "gradient-red"
-}>();
+// eslint-disable-next-line vue/no-setup-props-destructure
+const { gradientColor = 'gradient' } = defineProps<{
+  gradientColor?: 'gradient' | 'gradient-green' | 'gradient-red'
+}>()
 
 </script>
 <template>

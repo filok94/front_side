@@ -1,110 +1,106 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { onMounted, reactive, ref, watch } from "vue";
-import vImagesCollection from "../components/common/vImagesCollection.vue";
-import vButton from "../components/common/vButton.vue";
-import vBasePage from "./vBasePage.vue";
-import { computed } from "vue";
-import { ANIMATIONS_RANGE,
-	useAnimation } from "../Helpers/Animations/CommonAnimations";
-import { saveAvatar } from "../api/avatarController/avatar.api";
-import { useRouter } from "vue-router";
-import { ROUTER_NAMES } from "../router";
-import { useAvatarStore } from "../stores/avatar_store";
+import { storeToRefs } from 'pinia'
+import { onMounted, reactive, ref, watch, computed } from 'vue'
+import vImagesCollection from '../components/common/vImagesCollection.vue'
+import vButton from '../components/common/vButton.vue'
+import vBasePage from './vBasePage.vue'
+import {
+  ANIMATIONS_RANGE,
+  useAnimation
+} from '../Helpers/Animations/CommonAnimations'
+import { saveAvatar } from '../api/avatarController/avatar.api'
+import { useRouter } from 'vue-router'
+import { ROUTER_NAMES } from '../router'
+import { useAvatarStore } from '../stores/avatar_store'
 
-const avatarStore = useAvatarStore();
-const router = useRouter();
+const avatarStore = useAvatarStore()
+const router = useRouter()
 onMounted(async () => {
-	await avatarStore.getAllAvatarsList();
-});
+  await avatarStore.getAllAvatarsList()
+})
 
 const { allAvatarsList, options, activeAvatarLink } = storeToRefs(
-	useAvatarStore()
-);
+  useAvatarStore()
+)
 
-const avatarOptionsId = ref<null | string>(null);
-let isRequestActive = ref(false);
+const avatarOptionsId = ref<null | string>(null)
+const isRequestActive = ref(false)
 const clickImage = async (e: string) => {
-	isRequestActive.value = true;
-	avatarOptionsId.value = e;
-	await avatarStore.getAvatarOptions({
-		avatarId: e 
-	});
-	isRequestActive.value = false;
-};
+  isRequestActive.value = true
+  avatarOptionsId.value = e
+  await avatarStore.getAvatarOptions({
+    avatarId: e
+  })
+  isRequestActive.value = false
+}
 
 const propsQueryString = computed(() => {
-	let allPropsString = "";
-	if (options.value) {
-		for (let prop of options.value) {
-			const index = options.value.indexOf(prop);
-			let propString = `${ prop.prop_name }=${
-				prop.values[chosenOptions[index]]
-			}&`;
-			if (prop.probability) {
-				propString += `${ prop.probability }=100&`;
-			}
-			allPropsString += propString;
-		}
-	}
-	return allPropsString.slice(0, -1);
-});
-let chosenOptions = reactive<number[]>([]);
+  let allPropsString = ''
+  if (options.value) {
+    for (const prop of options.value) {
+      const index = options.value.indexOf(prop)
+      let propString = `${prop.prop_name}=${prop.values[chosenOptions[index]]}&`
+      if (prop.probability) {
+        propString += `${prop.probability}=100&`
+      }
+      allPropsString += propString
+    }
+  }
+  return allPropsString.slice(0, -1)
+})
+const chosenOptions = reactive<number[]>([])
 
 const nextVariant = (params: { index: number; up: boolean }) => {
-	if (options.value) {
-		if (params.up) {
-			if (
-				chosenOptions[params.index] ===
+  if (options.value) {
+    if (params.up) {
+      if (
+        chosenOptions[params.index] ===
         options.value[params.index].values.length - 1
-			) {
-				chosenOptions[params.index] = 0;
-			}
-			else {
-				chosenOptions[params.index]++;
-			}
-		}
-		else {
-			if (chosenOptions[params.index] === 0) {
-				chosenOptions[params.index] =
-          options.value[params.index].values.length - 1;
-			}
-			else {
-				chosenOptions[params.index]--;
-			}
-		}
-	}
-};
+      ) {
+        chosenOptions[params.index] = 0
+      } else {
+        chosenOptions[params.index]++
+      }
+    } else {
+      if (chosenOptions[params.index] === 0) {
+        chosenOptions[params.index] =
+          options.value[params.index].values.length - 1
+      } else {
+        chosenOptions[params.index]--
+      }
+    }
+  }
+}
 
 const saveImageAndGoMainPage = async () => {
-	if (avatarOptionsId.value) {
-		await saveAvatar({
-			avatar: avatarOptionsId.value,
-			full_link: activeAvatarLink.value + propsQueryString.value,
-		});
-	}
-	router.push({
-		name: ROUTER_NAMES.main,
-		params: {
-			userId: window.localStorage.getItem("user") 
-		},
-	});
-};
+  if (avatarOptionsId.value) {
+    await saveAvatar({
+      avatar: avatarOptionsId.value,
+      full_link: activeAvatarLink.value + propsQueryString.value
+    })
+  }
+  router.push({
+    name: ROUTER_NAMES.main,
+    params: {
+      userId: window.localStorage.getItem('user')
+    }
+  })
+}
 
 watch(options, (nV) => {
-	chosenOptions.splice(0, chosenOptions.length);
-	nV?.forEach(() => chosenOptions.push(0));
-});
+  chosenOptions.splice(0, chosenOptions.length)
+  nV?.forEach(() => chosenOptions.push(0))
+})
 
-const { animateFrom } = useAnimation();
-const imageDimension = ref(400);
+const { animateFrom } = useAnimation()
+const imageDimension = ref(400)
 const imageFromTopAnimation = (e: HTMLElement) =>
-	animateFrom(e, "fromTop", ANIMATIONS_RANGE.HIGH);
+  animateFrom(e, 'fromTop', ANIMATIONS_RANGE.HIGH)
 const minimizeImage = () => {
-	imageDimension.value != 100
-		? (imageDimension.value = 100)
-		: (imageDimension.value = 400);
-};
+  imageDimension.value !== 100
+    ? (imageDimension.value = 100)
+    : (imageDimension.value = 400)
+}
 </script>
 <template>
   <vBasePage :title="'Avatars'">
@@ -165,7 +161,7 @@ const minimizeImage = () => {
             >
               &lt;
             </button>
-            <p>{{ chosenOptions[index] }}/{{ option.values.length - 1 }}</p>
+            <p>{{ chosenOptions[index] + 1 }}/{{ option.values.length }}</p>
             <button
               class="button_right"
               @click.prevent="nextVariant({ index: index, up: true })"

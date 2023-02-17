@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import vCard from "./common/vCard.vue";
-import vModal from "./common/vModal.vue";
-import oneCreateGame from "./oneCreateGame.vue";
-import oneCreatePerson from "./oneCreatePerson.vue";
+import { ref } from 'vue'
+import vCard from './common/vCard.vue'
+import vModal from './common/vModal.vue'
+import oneCreateGame from './oneCreateGame.vue'
+import oneCreatePerson from './oneCreatePerson.vue'
 
-const modal = ref(false);
-const activeModalEditor = ref<null | number>(0);
+const modal = ref(false)
+const activeModalEditor = ref<null | number>(0)
 const chooseTheEditor = (index: number) => {
-	modal.value = !modal.value;
-	activeModalEditor.value = index;
-};
-const closeModal = () => {
-	modal.value = false;
-	activeModalEditor.value = null;
-};
+  modal.value = !modal.value
+  activeModalEditor.value = index
+}
+const closeModal = async () => {
+  modal.value = false
+  activeModalEditor.value = null
+}
 
-const titles = [ {
-	title: "Create person",
-	description: "Create persons as games awards" 
+const titles = [{
+  title: 'Create person',
+  description: 'Create persons as games awards'
 }, {
-	title: "Create game",
-	description: "Create tests" 
-} ];
+  title: 'Create game',
+  description: 'Create tests'
+}]
 </script>
 
 <template>
@@ -35,7 +35,7 @@ const titles = [ {
         isHoverable: true,
         onElement: 'title'
       }"
-      
+
       :description="titles[index].description"
       @click.prevent="chooseTheEditor(index)"
     />

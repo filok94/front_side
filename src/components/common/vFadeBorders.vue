@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 const props = defineProps<{
   faderHeight?: number;
-}>();
+}>()
 const faderHeight = computed(() => {
-	return props.faderHeight ? `${ props.faderHeight }rem` : "4rem";
-});
+  return props.faderHeight ? `${props.faderHeight}rem` : '4rem'
+})
 </script>
 
 <template>

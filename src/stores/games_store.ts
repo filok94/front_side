@@ -1,14 +1,18 @@
-import { IGetAllGamesResponse,
-	IGetQuestionsResponse,
-	IPostCalculateAnswers } from "../api/gameController/games.api.interfaces";
-import { defineStore } from "pinia";
-import { getAllGames,
-	getQuestions,
-	postCalculate,
-	getResultData } from "../api/gameController/games.api";
-import { IAnswersList, Nullable } from "../types/testsTypes.interface";
+import {
+  IGetAllGamesResponse,
+  IGetQuestionsResponse,
+  IPostCalculateAnswers
+} from '../api/gameController/games.api.interfaces'
+import { defineStore } from 'pinia'
+import {
+  getAllGames,
+  getQuestions,
+  postCalculate,
+  getResultData
+} from '../api/gameController/games.api'
+import { IAnswersList, Nullable } from '../types/testsTypes.interface'
 
-import { IPerson } from "../api/personController/persons.api.interfaces";
+import { IPerson } from '../api/personController/persons.api.interfaces'
 
 type Result = {
 	right_answer: number;
@@ -28,48 +32,48 @@ interface GamesState {
 	person: IPerson | null;
 }
 
-export const useGamesStore = defineStore("games", {
-	state: (): GamesState => {
-		return {
-			games: null,
-			activeGame: null,
-			anserwsList: [],
-			gameResult: [],
-			person: null,
-		};
-	},
-	actions: {
-		async setActiveGame (gameName: string) {
-			const activeGame = this.games?.filter((e) => e.title == gameName)[0];
-			if (activeGame) {
-				const questions = await getQuestions({
-					game_id: activeGame._id 
-				});
-				this.activeGame = this.activeGame = {
-					id: activeGame._id,
-					title: activeGame.title,
-					questions: questions,
-				};
-			}
-		},
-		async getAllGames () {
-			this.games = await getAllGames();
-		},
+export const useGamesStore = defineStore('games', {
+  state: (): GamesState => {
+    return {
+      games: null,
+      activeGame: null,
+      anserwsList: [],
+      gameResult: [],
+      person: null
+    }
+  },
+  actions: {
+    async setActiveGame (gameName: string) {
+      const activeGame = this.games?.filter((e) => e.title === gameName)[0]
+      if (activeGame) {
+        const questions = await getQuestions({
+          game_id: activeGame._id
+        })
+        this.activeGame = this.activeGame = {
+          id: activeGame._id,
+          title: activeGame.title,
+          questions
+        }
+      }
+    },
+    async getAllGames () {
+      this.games = await getAllGames()
+    },
 
-		pushAnswerToList (param: IAnswersList) {
-			this.anserwsList.push(param);
-		},
+    pushAnswerToList (param: IAnswersList) {
+      this.anserwsList.push(param)
+    },
 
-		async pushToCalculate (data: IPostCalculateAnswers) {
-			await postCalculate(data);
-		},
+    async pushToCalculate (data: IPostCalculateAnswers) {
+      await postCalculate(data)
+    },
 
-		async setResultData (gameId: string) {
-			const result = await getResultData({
-				gameId 
-			});
-			this.gameResult = result?.test_data ?? [];
-			this.person = result?.person || null;
-		},
-	},
-});
+    async setResultData (gameId: string) {
+      const result = await getResultData({
+        gameId
+      })
+      this.gameResult = result?.test_data ?? []
+      this.person = result?.person || null
+    }
+  }
+})
