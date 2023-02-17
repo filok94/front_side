@@ -1,56 +1,56 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { ANIMATIONS_RANGE,
-	useAnimation } from "../../Helpers/Animations/CommonAnimations";
-import { HTMLRef } from "../../types/testsTypes.interface";
+import { ref, onMounted } from 'vue'
+import {
+  ANIMATIONS_RANGE,
+  useAnimation
+} from '../../Helpers/Animations/CommonAnimations'
+import { HTMLRef } from '../../types/testsTypes.interface'
 
-let props = defineProps<{
+const props = defineProps<{
   title?: string;
   description?: string;
   image?: string;
   hover?: {
     isHoverable: boolean;
-    onElement?: "title" | "description";
+    onElement?: 'title' | 'description';
   };
-  appearsFrom?: "left" | "right" | "top" | "bottom" | null;
-}>();
+  appearsFrom?: 'left' | 'right' | 'top' | 'bottom' | null;
+}>()
 
-let card: HTMLRef = ref(null);
-let titleRef: HTMLRef = ref(null);
-let descriptionRef: HTMLRef = ref(null);
+const card: HTMLRef = ref(null)
+const titleRef: HTMLRef = ref(null)
+const descriptionRef: HTMLRef = ref(null)
 
 defineExpose({
-	card 
-});
-const { animateFrom } = useAnimation();
+  card
+})
+const { animateFrom } = useAnimation()
 onMounted(() => {
-	switch (props.appearsFrom) {
-	case "bottom": {
-		animateFrom(card, "fromBottom", ANIMATIONS_RANGE.LOW);
-		break;
-	}
-	case "top": {
-		animateFrom(card, "fromTop", ANIMATIONS_RANGE.LOW);
-		break;
-	}
-	case "right": {
-		animateFrom(card, "fromRight", ANIMATIONS_RANGE.LOW);
-		break;
-	}
-	case "left": {
-		animateFrom(card, "fromLeft", ANIMATIONS_RANGE.LOW);
-		break;
-	}
-	case null: {
-		null;
-		break;
-	}
-	default: {
-		null;
-		break;
-	}
-	}
-});
+  switch (props.appearsFrom) {
+    case 'bottom': {
+      animateFrom(card, 'fromBottom', ANIMATIONS_RANGE.LOW)
+      break
+    }
+    case 'top': {
+      animateFrom(card, 'fromTop', ANIMATIONS_RANGE.LOW)
+      break
+    }
+    case 'right': {
+      animateFrom(card, 'fromRight', ANIMATIONS_RANGE.LOW)
+      break
+    }
+    case 'left': {
+      animateFrom(card, 'fromLeft', ANIMATIONS_RANGE.LOW)
+      break
+    }
+    case null: {
+      break
+    }
+    default: {
+      break
+    }
+  }
+})
 </script>
 
 <template>

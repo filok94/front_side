@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { HTMLRef } from "../../types/testsTypes.interface";
+import { ref } from 'vue'
+import { HTMLRef } from '../../types/testsTypes.interface'
 
-const panel: HTMLRef = ref(null);
+const panel: HTMLRef = ref(null)
 defineExpose({
-	panel 
-});
+  panel
+})
 </script>
 <template>
   <div class="v-panel">

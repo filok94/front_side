@@ -1,14 +1,14 @@
-import { IPerson } from "../personController/persons.api.interfaces";
+import { IPerson } from '../personController/persons.api.interfaces'
 
-const GAMES_CONTROLLER = "games";
+const GAMES_CONTROLLER = 'games'
 
 export const GAME_URLS = {
-	get_all: `${ GAMES_CONTROLLER }`,
-	get_questions: (id: string) => `${ GAMES_CONTROLLER }/${ id }`,
-	calculate: (id: string) => `${ GAMES_CONTROLLER }/${ id }/calculate`,
-	get_results: (id: string) => `${ GAMES_CONTROLLER }/${ id }/results`,
-	post_create_game: `admin/${ GAMES_CONTROLLER }/create`
-} as const;
+  get_all: `${GAMES_CONTROLLER}`,
+  get_questions: (id: string) => `${GAMES_CONTROLLER}/${id}`,
+  calculate: (id: string) => `${GAMES_CONTROLLER}/${id}/calculate`,
+  get_results: (id: string) => `${GAMES_CONTROLLER}/${id}/results`,
+  post_create_game: `admin/${GAMES_CONTROLLER}/create`
+} as const
 // eslint-disable-next-line no-redeclare
 export type GAME_URLS = typeof GAME_URLS[keyof typeof GAME_URLS];
 

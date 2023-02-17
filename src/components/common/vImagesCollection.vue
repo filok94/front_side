@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { IResponseGetAllAvatars } from "../../api/avatarController/avatar.api.interfaces";
-import { Nullable } from "../../types/testsTypes.interface";
+import { computed, ref } from 'vue'
+import { IResponseGetAllAvatars } from '../../api/avatarController/avatar.api.interfaces'
+import { Nullable } from '../../types/testsTypes.interface'
 
 const props = defineProps<{
   srcArray: Nullable<IResponseGetAllAvatars[]>;
-}>();
-let emit = defineEmits<{ (e: "clickImage", target: string): void }>();
+}>()
+const emit = defineEmits<{(e: 'clickImage', target: string): void }>()
 
-const cardDimension = ref(400);
-const cardDimensionToPixel = computed(() => cardDimension.value + "px");
+const cardDimension = ref(400)
+const cardDimensionToPixel = computed(() => cardDimension.value + 'px')
 
-const isActiveCardId = ref<null | string>(null);
+const isActiveCardId = ref<null | string>(null)
 const clickOnImage = (id: string) => {
-	if (isActiveCardId.value != id) {
-		emit("clickImage", id);
-		isActiveCardId.value = id;
-	}
-};
+  if (isActiveCardId.value !== id) {
+    emit('clickImage', id)
+    isActiveCardId.value = id
+  }
+}
 </script>
 <template>
   <div

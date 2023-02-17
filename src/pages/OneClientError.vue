@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { ROUTER_NAMES } from "../router";
-import vButton from "../components/common/vButton.vue";
-const router = useRouter();
+import { useRouter } from 'vue-router'
+import { ROUTER_NAMES } from '../router'
+import vButton from '../components/common/vButton.vue'
+const router = useRouter()
 const backToMainPage = () => {
-	router.push({
-		name: ROUTER_NAMES.main,
-		params: {
-			userId: window.localStorage.getItem("user") 
-		},
-	});
-};
+  router.push({
+    name: ROUTER_NAMES.main,
+    params: {
+      userId: window.localStorage.getItem('user')
+    }
+  })
+}
 </script>
 
 <template>

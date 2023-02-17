@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { circlesMovement } from "../Helpers/Animations/CommonAnimations";
-import { onMounted, Ref, ref } from "vue";
-let loaderCirclesArray = ref<never | HTMLElement[]>([]);
+import { circlesMovement } from '../Helpers/Animations/CommonAnimations'
+import { onMounted, Ref, ref } from 'vue'
+const loaderCirclesArray = ref<never | HTMLElement[]>([])
 
-let changingBorders = (stringToChange: Ref<string>) => {
-	let arrayHelper = [];
-	for (let i = 0; i < 4; i++) {
-		arrayHelper.push((Math.random() * (99 - 75) + 75).toFixed());
-	}
-	stringToChange.value = arrayHelper.join("% ") + "%";
-};
-let borders = ref("76px 93px 85px 92px");
+const changingBorders = (stringToChange: Ref<string>) => {
+  const arrayHelper = []
+  for (let i = 0; i < 4; i++) {
+    arrayHelper.push((Math.random() * (99 - 75) + 75).toFixed())
+  }
+  stringToChange.value = arrayHelper.join('% ') + '%'
+}
+const borders = ref('76px 93px 85px 92px')
 onMounted(() => {
-	circlesMovement(0, loaderCirclesArray.value);
-	circlesMovement(1, loaderCirclesArray.value);
-	circlesMovement(2, loaderCirclesArray.value);
-	circlesMovement(3, loaderCirclesArray.value);
+  circlesMovement(0, loaderCirclesArray.value)
+  circlesMovement(1, loaderCirclesArray.value)
+  circlesMovement(2, loaderCirclesArray.value)
+  circlesMovement(3, loaderCirclesArray.value)
 
-	setInterval(() => changingBorders(borders), 1000);
-});
+  setInterval(() => changingBorders(borders), 1000)
+})
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { Ref } from "vue";
+import { Ref } from 'vue'
 
 export interface ChooseSjwAnswer {
   answer: number;
@@ -20,10 +20,10 @@ export interface TriggerPerson {
   title: string;
 }
 
-export type OptionEmit = {
+export interface OptionEmit {
   optionTitle: string;
   optionVariant: string | number;
-};
+}
 
 export interface IInputError {
   message: string;
@@ -37,12 +37,12 @@ export interface IAnswersList {
 
 export type Nullable<T> = T | null | undefined;
 export class Tab {
-	name: string;
-	id: number;
-	constructor (params: { id: number; name: string }) {
-		this.name = params.name;
-		this.id = params.id;
-	}
+  name: string
+  id: number
+  constructor (params: { id: number; name: string }) {
+    this.name = params.name
+    this.id = params.id
+  }
 }
 
 export type HTMLRef<T = HTMLElement> = Ref<null | T>;

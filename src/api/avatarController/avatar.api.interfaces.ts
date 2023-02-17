@@ -1,11 +1,11 @@
-const AVATAR_CONTROLLER = "avatars";
+const AVATAR_CONTROLLER = 'avatars'
 
 export const AVATAR_URLS = {
-	user: `${ AVATAR_CONTROLLER }/user`,
-	get_all: `${ AVATAR_CONTROLLER }`,
-	get_by_id: (id: string) => `${ AVATAR_CONTROLLER }/${ id }`,
-	save: `${ AVATAR_CONTROLLER }/save`,
-} as const;
+  user: `${AVATAR_CONTROLLER}/user`,
+  get_all: `${AVATAR_CONTROLLER}`,
+  get_by_id: (id: string) => `${AVATAR_CONTROLLER}/${id}`,
+  save: `${AVATAR_CONTROLLER}/save`
+} as const
 // eslint-disable-next-line no-redeclare
 export type AVATAR_URLS = typeof AVATAR_URLS[keyof typeof AVATAR_URLS];
 export interface IResponseGetMyAvatar {

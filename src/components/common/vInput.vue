@@ -1,39 +1,40 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
-import { ANIMATIONS_RANGE,
-	useAnimation } from "../../Helpers/Animations/CommonAnimations";
-import { HTMLRef } from "../../types/testsTypes.interface";
+import { computed, ref, watch } from 'vue'
+import {
+  ANIMATIONS_RANGE,
+  useAnimation
+} from '../../Helpers/Animations/CommonAnimations'
+import { HTMLRef } from '../../types/testsTypes.interface'
 
-const props = defineProps<{
-		label: string;
-		maxLength?: number;
-		minLength?: number;
-		type: "text" | "number" | "password";
-		error?: string | undefined;
-		modelValue: string;
-	}>();
-const emit = defineEmits<{
-		(e: "update:modelValue", value: string): void;
-	}>();
+interface Props {
+	label: string;
+	maxLength?: number;
+	minLength?: number;
+	type: 'text' | 'number' | 'password';
+	error?: string | undefined;
+	modelValue: string;
+}
+const props = defineProps<Props>()
+const emit = defineEmits<{(e: 'update:modelValue', value: string): void; }>()
 
 const updateInput = (event: Event) => {
-	emit("update:modelValue", (event.target as HTMLInputElement).value);
-};
+  emit('update:modelValue', (event.target as HTMLInputElement).value)
+}
 
-const inputIsFocused = ref(false);
+const inputIsFocused = ref(false)
 const inputLabelUpCondition = computed(
-	() => props.modelValue.length != 0 || inputIsFocused.value
-);
-const input: HTMLRef<HTMLInputElement> = ref(null);
-const focusAndBlur = () => (inputIsFocused.value = !inputIsFocused.value);
+  () => props.modelValue.length !== 0 || inputIsFocused.value
+)
+const input: HTMLRef<HTMLInputElement> = ref(null)
+const focusAndBlur = () => (inputIsFocused.value = !inputIsFocused.value)
 
-const errorMessageRef = ref(null);
-const { animateFrom } = useAnimation();
+const errorMessageRef = ref(null)
+const { animateFrom } = useAnimation()
 watch(props, (nValue) => {
-	if (nValue.error) {
-		animateFrom(errorMessageRef, "fromTop", ANIMATIONS_RANGE.LOWEST);
-	}
-});
+  if (nValue.error) {
+    animateFrom(errorMessageRef, 'fromTop', ANIMATIONS_RANGE.LOWEST)
+  }
+})
 </script>
 <template>
   <form
