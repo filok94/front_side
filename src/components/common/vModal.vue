@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, Ref, ref } from 'vue'
+import vTitle from '../typogrpaphic/vTitle.vue'
 import { onClickOutside, useEventListener } from '@vueuse/core'
 import vButton from './vButton.vue'
-import vGradient from './vGradientText.vue'
 
 const emit = defineEmits<{(e: 'closeModal', target: boolean): void }>()
 const props = defineProps<{
@@ -50,9 +50,12 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
       class="v-modal_inner"
     >
       <div class="v-modal_header">
-        <v-gradient>
-          <h1>{{ props.title }}</h1>
-        </v-gradient>
+        <v-title
+          class="modal-title"
+          :h-tag="1"
+        >
+          {{ props.title }}
+        </v-title>
         <button @click.prevent="props.isEasyClosable ? destroyModal() : confirmModal?.showModal()">
           X
         </button>
@@ -62,9 +65,12 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
         ref="confirmModal"
         class="v-modal_confirm"
       >
-        <v-gradient>
-          <h1>Are you sure you want to close the window?</h1>
-        </v-gradient>
+        <v-title
+          class="modal-title"
+          :h-tag="3"
+        >
+          Are you sure you want to close the window?
+        </v-title>
         <div
           class="v-modal_confirm_controller"
         >
@@ -148,13 +154,6 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
   }
 }
 
-h1 {
-  text-align: left;
-  font-family: var(--neon-font);
-  font-size: 2.5rem;
-  margin: 1.5rem;
-}
-
 .v-modal_confirm {
   background: var(--color-black);
   border: none;
@@ -172,5 +171,8 @@ h1 {
     gap: 3rem;
     justify-content: center;
   }
+}
+.modal-title {
+  margin-left: 1.5rem;
 }
 </style>

@@ -1,32 +1,23 @@
 <script lang="ts" setup>
-import { ref, onMounted, reactive } from 'vue'
-import navigation from '../components/OneNavigation.vue'
-import OneSettings from '../components/OneSettings.vue'
-import GameCollection from '../components/OneGameCollection.vue'
-import oneAdmin from '../components/OneAdmin.vue'
-import { ANIMATIONS_RANGE, useAnimation } from '../Helpers/Animations/CommonAnimations'
+import { onMounted, reactive } from 'vue'
+import navigation from '../components/oneNavigation.vue'
 import { Tab } from '../types/testsTypes.interface'
 import { useGamesStore } from '../stores/games_store'
 import vBasePage from './vBasePage.vue'
 import { USER_STORAGE } from '../api/auth/auth.interfaces'
+import { ROUTER_NAMES } from '../router'
+import { useRoute } from 'vue-router'
 
-const activeTabIndex = ref(0)
+const route = useRoute()
 
-const activateTarget = (target: number) => {
-  activeTabIndex.value = target
-}
-const components = [GameCollection, OneSettings, oneAdmin]
 const tabs = reactive<Tab[]>([
   new Tab({
-    id: 0, name: 'Games'
+    name: 'Games', routeName: ROUTER_NAMES.main.gamesList
   }),
   new Tab({
-    id: 1, name: 'Settings'
+    name: 'Settings', routeName: ROUTER_NAMES.main.settings
   })
 ])
-const enter = (el: HTMLElement) =>
-  animateFrom(el, 'fromTop', ANIMATIONS_RANGE.VERY_LOW)
-const { animateFrom } = useAnimation()
 
 const gamesStore = useGamesStore()
 onMounted(async () => {
@@ -34,7 +25,7 @@ onMounted(async () => {
   const isAdmin = JSON.parse(String(localStorage.getItem(USER_STORAGE.is_admin)))
   if (isAdmin) {
     tabs.push(new Tab({
-      id: 2,
+      routeName: ROUTER_NAMES.main.admin,
       name: 'Admin'
     }))
   }
@@ -42,19 +33,30 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-base-page :title="tabs[activeTabIndex].name">
+  <v-base-page
+    v-if="tabs.find(e=>e.routeName === ROUTER_NAMES.main.admin)"
+    :title="tabs.find(e=>e.routeName == route.name)?.name as string"
+  >
     <navigation
       :tabs="tabs"
-      @activation="activateTarget"
     />
 
-    <div class="activated-window">
-      <transition
-        mode="out-in"
-        @enter="enter"
-      >
-        <component :is="components[activeTabIndex]" />
+    <router-view v-slot="{Component}">
+      <transition mode="out-in">
+        <component :is="Component" />
       </transition>
-    </div>
+    </router-view>
   </v-base-page>
 </template>
+
+<style lang="postcss">
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
+}
+ </style>

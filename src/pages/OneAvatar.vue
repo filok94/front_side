@@ -80,7 +80,7 @@ const saveImageAndGoMainPage = async () => {
     })
   }
   router.push({
-    name: ROUTER_NAMES.main,
+    name: ROUTER_NAMES.main.root,
     params: {
       userId: window.localStorage.getItem('user')
     }

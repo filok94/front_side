@@ -27,28 +27,28 @@ defineExpose({
 const { animateFrom } = useAnimation()
 onMounted(() => {
   switch (props.appearsFrom) {
-    case 'bottom': {
-      animateFrom(card, 'fromBottom', ANIMATIONS_RANGE.LOW)
-      break
-    }
-    case 'top': {
-      animateFrom(card, 'fromTop', ANIMATIONS_RANGE.LOW)
-      break
-    }
-    case 'right': {
-      animateFrom(card, 'fromRight', ANIMATIONS_RANGE.LOW)
-      break
-    }
-    case 'left': {
-      animateFrom(card, 'fromLeft', ANIMATIONS_RANGE.LOW)
-      break
-    }
-    case null: {
-      break
-    }
-    default: {
-      break
-    }
+  case 'bottom': {
+    animateFrom(card, 'fromBottom', ANIMATIONS_RANGE.LOW)
+    break
+  }
+  case 'top': {
+    animateFrom(card, 'fromTop', ANIMATIONS_RANGE.LOW)
+    break
+  }
+  case 'right': {
+    animateFrom(card, 'fromRight', ANIMATIONS_RANGE.LOW)
+    break
+  }
+  case 'left': {
+    animateFrom(card, 'fromLeft', ANIMATIONS_RANGE.LOW)
+    break
+  }
+  case null: {
+    break
+  }
+  default: {
+    break
+  }
   }
 })
 </script>

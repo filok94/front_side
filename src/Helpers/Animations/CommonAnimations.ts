@@ -44,32 +44,32 @@ export function useAnimation () {
     let [x, y] = [0, 0]
 
     switch (destination) {
-      case 'fromBottom' || 'toBottom': {
-        y = range
-        break
-      }
-      case 'fromLeft' || 'toLeft': {
-        x = -range
-        break
-      }
-      case 'fromRight' || 'toRight': {
-        x = range
-        break
-      }
-      case 'fromTop' || 'toTop': {
-        y = -range
-        break
-      }
-      case 'fromTopRight' || 'toTopRight': {
-        x = range
-        y = -range
-        break
-      }
-      case 'fromTopLeft' || 'toTopLeft': {
-        x = -range
-        y = -range
-        break
-      }
+    case 'fromBottom' || 'toBottom': {
+      y = range
+      break
+    }
+    case 'fromLeft' || 'toLeft': {
+      x = -range
+      break
+    }
+    case 'fromRight' || 'toRight': {
+      x = range
+      break
+    }
+    case 'fromTop' || 'toTop': {
+      y = -range
+      break
+    }
+    case 'fromTopRight' || 'toTopRight': {
+      x = range
+      y = -range
+      break
+    }
+    case 'fromTopLeft' || 'toTopLeft': {
+      x = -range
+      y = -range
+      break
+    }
     }
     return {
       x, y
@@ -147,13 +147,13 @@ export const AnimationCardGoingAside = async (
   const el = isRef(element) ? element.value : element
   const dividedDuration = duration / 1000
   switch (side) {
-    case GOING_ASIDE.right: {
-      const tlRight = gsap.timeline({
-        defaults: {
-          duration: dividedDuration, ease: 'power2.inOut'
-        }
-      })
-      tlRight
+  case GOING_ASIDE.right: {
+    const tlRight = gsap.timeline({
+      defaults: {
+        duration: dividedDuration, ease: 'power2.inOut'
+      }
+    })
+    tlRight
         .to(el, {
           x: 30, y: 5, opacity: 0
         })
@@ -166,15 +166,15 @@ export const AnimationCardGoingAside = async (
         .set(el, {
           opacity: 1, x: 0, y: 0
         })
-      break
-    }
-    case GOING_ASIDE.left: {
-      const tlLeft = gsap.timeline({
-        defaults: {
-          duration: dividedDuration, ease: 'power2.inOut'
-        }
-      })
-      tlLeft
+    break
+  }
+  case GOING_ASIDE.left: {
+    const tlLeft = gsap.timeline({
+      defaults: {
+        duration: dividedDuration, ease: 'power2.inOut'
+      }
+    })
+    tlLeft
         .to(el, {
           x: -30, y: 5, opacity: 0
         })
@@ -187,8 +187,8 @@ export const AnimationCardGoingAside = async (
         .set(el, {
           opacity: 1, x: 0, y: 0
         })
-      break
-    }
+    break
+  }
   }
 }
 
@@ -200,27 +200,27 @@ export const AnimationShakingElement = (element: HTMLElement | HTMLRef) => {
     }
   })
   shakingTimeLine
-    .to(el, {
-      x: 5
-    })
-    .to(el, {
-      x: -5
-    })
-    .to(el, {
-      x: 5
-    })
-    .to(el, {
-      x: -5
-    })
-    .to(el, {
-      x: 5
-    })
-    .to(el, {
-      x: -5
-    })
-    .set(el, {
-      x: 0
-    })
+      .to(el, {
+        x: 5
+      })
+      .to(el, {
+        x: -5
+      })
+      .to(el, {
+        x: 5
+      })
+      .to(el, {
+        x: -5
+      })
+      .to(el, {
+        x: 5
+      })
+      .to(el, {
+        x: -5
+      })
+      .set(el, {
+        x: 0
+      })
 }
 
 export const circlesMovement = (
@@ -235,18 +235,18 @@ export const circlesMovement = (
     }
   })
   timeline
-    .to(arrayOfCircles[circle], {
-      x: -50, background: '#005ef1'
-    })
-    .to(arrayOfCircles[circle], {
-      y: 50, background: '#6025c3'
-    })
-    .to(arrayOfCircles[circle], {
-      x: 0, background: '#005ef1'
-    })
-    .to(arrayOfCircles[circle], {
-      y: 0, background: '#6025c3'
-    })
+      .to(arrayOfCircles[circle], {
+        x: -50, background: '#005ef1'
+      })
+      .to(arrayOfCircles[circle], {
+        y: 50, background: '#6025c3'
+      })
+      .to(arrayOfCircles[circle], {
+        x: 0, background: '#005ef1'
+      })
+      .to(arrayOfCircles[circle], {
+        y: 0, background: '#6025c3'
+      })
 }
 
 export const hoverEffectOnText = (element: HTMLRef, color: string) => {

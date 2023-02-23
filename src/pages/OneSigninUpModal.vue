@@ -7,7 +7,7 @@ import VPanel from '../components/common/vPanel.vue'
 import { loginPageErrorHandler } from '../Helpers/errorHandlers/loginPageErrorHandler'
 import { loginPage } from '../locales/loginPage'
 import { setAuthDataToStorage, signIn } from '../api/auth/auth.api'
-import { ISignInResponse, SIGN_URLS } from '../api/auth/auth.interfaces'
+import { ISignInResponse, SIGN_URLS, USER_STORAGE } from '../api/auth/auth.interfaces'
 import { ROUTER_NAMES } from '../router'
 import { AxiosResponse } from 'axios'
 
@@ -62,9 +62,9 @@ const signByButton = async () => {
         ...res.data
       })
       router.push({
-        name: ROUTER_NAMES.main,
+        name: ROUTER_NAMES.main.root,
         params: {
-          userId: window.localStorage.getItem('user')
+          userId: window.localStorage.getItem(USER_STORAGE.user)
         }
       })
     }

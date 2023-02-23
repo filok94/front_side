@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Loading from './OneLoading.vue'
+import Loading from '../components/oneLoading.vue'
 import { AnimationFlickeringOnText } from '../Helpers/Animations/GameCollection'
 import { useGamesStore } from '../stores/games_store'
 import { ROUTER_NAMES } from '../router'
-import vCard from './common/vCard.vue'
+import vCard from '../components/common/vCard.vue'
 import { HTMLRef } from '../types/testsTypes.interface'
-import vGradient from './common/vGradientText.vue'
+import vGradient from '../components/common/vGradientText.vue'
 
 const router = useRouter()
 const gamesStore = useGamesStore()

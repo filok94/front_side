@@ -30,7 +30,10 @@ const personsDevidedByCount = computed(() => {
 })
 
 const selectedPersons = reactive<string[]>([])
-const allPersonsAreSelected = computed(() => selectedPersons.filter(e => typeof e === 'string').length === personsDevidedByCount.value.length)
+const allPersonsAreSelected = computed(() => {
+  return selectedPersons
+      .filter(e => typeof e === 'string').length === personsDevidedByCount.value.length
+})
 
 const emit = defineEmits<{(ev: 'gameDone', isDone: boolean): void}>()
 
@@ -69,7 +72,9 @@ const checkPerson = (data: {index: number, value: string}) => {
           v-for="(person, index) of i"
           :key="index"
           class="person_item"
-          :class="{'person_item_checked': selectedPersons[personsDevidedByCount.indexOf(i)] === person._id}"
+          :class="{
+            'person_item_checked': selectedPersons[personsDevidedByCount.indexOf(i)] === person._id
+          }"
           @click="checkPerson({index: personsDevidedByCount.indexOf(i), value: person._id})"
         >
           <p class="person_item_name">

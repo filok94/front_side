@@ -66,7 +66,7 @@ const chooseAnswer = (param: IAnswersList) => {
 const currentBlock = computed(
   () =>
     (activeGame.value?.questions as IGetQuestionsResponse[])[
-      Number(route.query.step) - 1
+        Number(route.query.step) - 1
     ]
 )
 const previousBlocks = reactive<IGetQuestionsResponse[]>([])
@@ -249,12 +249,6 @@ onUnmounted(() => {
   }
 }
 
-h1.game-title {
-  text-align: left;
-  font-size: 4rem;
-  font-weight: 600;
-  color: var(--color-violet-5);
-}
 .game-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;

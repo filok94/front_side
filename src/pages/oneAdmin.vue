@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import vCard from './common/vCard.vue'
-import vModal from './common/vModal.vue'
-import oneCreateGame from './oneCreateGame.vue'
-import oneCreatePerson from './oneCreatePerson.vue'
+import vCard from '../components/common/vCard.vue'
+import vModal from '../components/common/vModal.vue'
+import oneCreateGame from '../components/oneCreateGame.vue'
+import oneCreatePerson from '../components/oneCreatePerson.vue'
 
 const modal = ref(false)
 const activeModalEditor = ref<null | number>(0)

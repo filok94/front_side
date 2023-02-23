@@ -38,11 +38,23 @@ export interface IAnswersList {
 export type Nullable<T> = T | null | undefined;
 export class Tab {
   name: string
-  id: number
-  constructor (params: { id: number; name: string }) {
+  routeName: string
+  constructor (params: { routeName: string; name: string }) {
     this.name = params.name
-    this.id = params.id
+    this.routeName = params.routeName
   }
 }
+
+export class CircleZone {
+  constructor (public fromX: Ref<number>, public toX: Ref<number>, public fromY: Ref<number>, public toY: Ref<number>, public zoneName: string) {
+    this.fromX = fromX
+    this.toX = toX
+    this.fromY = fromY
+    this.toY = toY
+    this.zoneName = zoneName
+  }
+}
+
+export type CircleGridArea = 'cb' | 'lb' | 'lc' | 'lt' | 'ct' | 'rt' | 'rc' | 'rb'
 
 export type HTMLRef<T = HTMLElement> = Ref<null | T>;

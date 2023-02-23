@@ -5,7 +5,7 @@ import vGradient from './components/common/vGradientText.vue'
 const router = useRouter()
 const goHomeByLogo = () => {
   router.push({
-    name: ROUTER_NAMES.main,
+    name: ROUTER_NAMES.main.gamesList,
     params: {
       userId: window.localStorage.getItem('user')
     }

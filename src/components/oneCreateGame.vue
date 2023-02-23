@@ -2,7 +2,7 @@
 import { reactive, onMounted, ref, computed } from 'vue'
 import vInput from './common/vInput.vue'
 import vButton from './common/vButton.vue'
-import onePickPerson from './OnePickPerson.vue'
+import onePickPerson from './onePickPerson.vue'
 import { useAdmin } from '../stores/admin_store'
 
 const props = defineProps<{
@@ -120,7 +120,9 @@ const goToPersonPick = () => {
           v-for="(i, index) in steps"
           :key="index"
           class="create-step_bar_item"
-          :class="{'bar-item_done': i.inputs.filter((e) => e.value !== '').length === i.inputs.length}"
+          :class="{
+            'bar-item_done': i.inputs.filter((e) => e.value !== '').length === i.inputs.length
+          }"
           @click.prevent="jumpToStep(index)"
         >
           {{ i.stepShortName }}

@@ -12,6 +12,9 @@ import OneTestResult from '../pages/OneTestResults.vue'
 import Avatar from '../pages/OneAvatar.vue'
 import CLientError from '../pages/OneCLientError.vue'
 import OneRegWindowVue from '../pages/OneSigninUpModal.vue'
+import GameCollection from '../pages/oneGameCollection.vue'
+import OneSettings from '../pages/oneSettings.vue'
+import OneAdmin from '../pages/oneAdmin.vue'
 import { USER_STORAGE } from '../api/auth/auth.interfaces'
 
 export const ROUTER_NAMES = {
@@ -21,7 +24,12 @@ export const ROUTER_NAMES = {
     sign_in: 'Sign_in',
     sign_up: 'Sign_up'
   },
-  main: 'MainPage',
+  main: {
+    root: 'Main',
+    gamesList: 'GamesList',
+    settings: 'Settings',
+    admin: 'Admin'
+  },
   test: {
     root: 'Test',
     testBlock: 'TestBlock',
@@ -42,16 +50,16 @@ const routes = [
   {
     path: '/',
     name: ROUTER_NAMES.redirect,
-    redirect: {
-      name: ROUTER_NAMES.main,
-      params: {
-        userId: window.localStorage.getItem('user')
-          ? window.localStorage.getItem('user')
-          : 'noneAuth'
-      },
-      component: MainPage,
-      meta: {
-        requireAuth: true
+    beforeEnter: (
+      to: RouteLocationNormalized,
+      from: RouteLocationNormalized,
+      next: NavigationGuardNext
+    ) => {
+      const userInStorage = window.localStorage.getItem(USER_STORAGE.user)
+      if (!userInStorage) {
+        router.push({ name: ROUTER_NAMES.login.sign_in })
+      } else {
+        router.push({ name: ROUTER_NAMES.main.root, params: { userId: userInStorage } })
       }
     }
   },
@@ -87,11 +95,54 @@ const routes = [
   },
   {
     path: '/:userId/profile',
-    name: ROUTER_NAMES.main,
+    name: ROUTER_NAMES.main.root,
     component: MainPage,
     meta: {
       requireAuth: true
-    }
+    },
+    beforeEnter: (
+      to: RouteLocationNormalized,
+      from: RouteLocationNormalized,
+      next: NavigationGuardNext
+    ) => {
+      if (to.name !== ROUTER_NAMES.main.root) {
+        next()
+      } else {
+        router.push({
+          name: ROUTER_NAMES.main.gamesList,
+          params: {
+            userId: window.localStorage.getItem(USER_STORAGE.user)
+          }
+        })
+      }
+    },
+    children: [
+      {
+        name: ROUTER_NAMES.main.gamesList,
+        path: 'games',
+        component: GameCollection,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        name: ROUTER_NAMES.main.settings,
+        path: 'settings',
+        component: OneSettings,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        name: ROUTER_NAMES.main.admin,
+        path: 'admin',
+        component: OneAdmin,
+        meta: {
+          requireAuth: true,
+          requireAdmin: true
+        }
+      }
+    ]
   },
   {
     path: '/:gameTitle',
@@ -155,10 +206,13 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
   const requireAuth = to.matched.some((record) => record.meta.requireAuth)
-  const isAuthed =
-    window.localStorage.getItem(USER_STORAGE.access_token) !== undefined
+  const isAdmin = JSON.parse(String(window.localStorage.getItem(USER_STORAGE.is_admin)))
+  const requireAdmin = to.matched.some((record) => record.meta.requireAdmin)
+  const isAuthed = window.localStorage.getItem(USER_STORAGE.access_token) != null
   if (requireAuth && !isAuthed) {
-    next('/login')
+    next({ name: ROUTER_NAMES.login.sign_in })
+  } else if (requireAdmin && !isAdmin) {
+    next({ name: ROUTER_NAMES.main.root, params: { userId: window.localStorage.getItem(USER_STORAGE.user) } })
   } else {
     next()
   }

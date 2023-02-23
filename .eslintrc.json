@@ -20,6 +20,27 @@
         "object-curly-spacing": ["error", "always"],
         "brace-style": ["error", "1tbs"],
         "@typescript-eslint/consistent-type-definitions": "warn",
-        "no-tabs": ["error", { "allowIndentationTabs": true }]
+        "no-tabs": ["error", { "allowIndentationTabs": true }],
+        "indent": ["error", 2,  {
+            "offsetTernaryExpressions": true,
+            "ObjectExpression": "first",
+            "MemberExpression": 2,
+            "VariableDeclarator": "first",
+            "FunctionExpression": {
+                "parameters": "first"
+            },
+            "FunctionDeclaration": {
+                "parameters": "first"
+            },
+            "CallExpression": {
+                "arguments": "first"
+            },
+            "ArrayExpression": "first",
+            "ImportDeclaration": "first"
+        }],
+        "max-len": ["error", { "code": 150, "tabWidth": 4 }],
+        "no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
+        "space-infix-ops": "error",
+        "comma-spacing": ["error", { "before": false, "after": true }]
     }
 }

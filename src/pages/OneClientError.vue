@@ -2,10 +2,11 @@
 import { useRouter } from 'vue-router'
 import { ROUTER_NAMES } from '../router'
 import vButton from '../components/common/vButton.vue'
+import vTitle from '../components/typogrpaphic/vTitle.vue'
 const router = useRouter()
 const backToMainPage = () => {
   router.push({
-    name: ROUTER_NAMES.main,
+    name: ROUTER_NAMES.main.root,
     params: {
       userId: window.localStorage.getItem('user')
     }
@@ -14,10 +15,11 @@ const backToMainPage = () => {
 </script>
 
 <template>
-  <h1>
-    4
-    <span>0</span>4
-  </h1>
+  <v-title
+    :h-tag="1"
+  >
+    404
+  </v-title>
   <v-button
     :purpose="'primary'"
     @click.prevent="backToMainPage"
@@ -25,12 +27,3 @@ const backToMainPage = () => {
     На главную
   </v-button>
 </template>
-
-<style lang="postcss" scoped>
-h1 {
-  font-size: 15rem;
-  span {
-    color: var(--color-pink);
-  }
-}
-</style>

@@ -50,6 +50,7 @@
     --border-minimal: 15px;
     --border-large: 35px;
 
+    @custom-media --mobile-screen (max-width: 375px);
     @custom-media --small-screen (max-width: 640px);
     @custom-media --medium-screen (max-width: 720px);
     @custom-media --upper-medium-screen (min-width: 720px);

@@ -6,7 +6,7 @@ import {
   detailMoveFromAside,
   detailRotating
 } from '../Helpers/Animations/AnimationSettings'
-import vPanel from './common/vPanel.vue'
+import vPanel from '../components/common/vPanel.vue'
 import { useAvatarStore } from '../stores/avatar_store'
 
 const { avatarLink } = storeToRefs(useAvatarStore())
@@ -55,7 +55,7 @@ onUnmounted(() => {
         @click="i.data.action"
       >
         <img
-          :src="i.data.img"
+          :src="avatarLink ?? ''"
           width="40"
           class="setting-icon"
         >

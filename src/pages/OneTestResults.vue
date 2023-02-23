@@ -22,12 +22,8 @@ const router = useRouter()
 const emit = defineEmits<{(e: 'fillThePreviousBlock', value: boolean): void;
                           (e: 'closeResults', value: boolean): void; }>()
 const props = withDefaults(
-  defineProps<{
-    indexToShow: number | null;
-  }>(),
-  {
-    indexToShow: null
-  }
+  defineProps<{indexToShow: number | null }>(),
+  { indexToShow: null }
 )
 const { animateFrom, animateTo } = useAnimation()
 onMounted(async () => {
@@ -59,7 +55,7 @@ const contentLeave = (el: HTMLElement) =>
 const currentRightAnswer = computed(() => {
   if (activeGame.value?.questions && typeof props.indexToShow === 'number') {
     return activeGame.value.questions[props.indexToShow as number].answers[
-      gameResult.value[props.indexToShow as number].right_answer
+        gameResult.value[props.indexToShow as number].right_answer
     ]
   }
   return null
@@ -73,7 +69,7 @@ watch(props, (nV) =>
 const currentUserAnswer = computed(() => {
   if (activeGame.value?.questions && typeof props.indexToShow === 'number') {
     return activeGame.value.questions[props.indexToShow as number].answers[
-      gameResult.value[props.indexToShow as number].user_answer
+        gameResult.value[props.indexToShow as number].user_answer
     ]
   }
   return null
@@ -81,7 +77,7 @@ const currentUserAnswer = computed(() => {
 
 const endAndGoHome = () =>
   router.push({
-    name: ROUTER_NAMES.main,
+    name: ROUTER_NAMES.main.root,
     params: {
       userId: window.localStorage.getItem('user')
     }
@@ -142,7 +138,9 @@ const endAndGoHome = () =>
           Right: <span>{{ currentRightAnswer }}</span>
         </h3>
         <v-gradient
-          :gradient-color="gameResult[props.indexToShow].is_right ? 'gradient-green' : 'gradient-red'"
+          :gradient-color="gameResult[props.indexToShow].is_right
+            ? 'gradient-green'
+            : 'gradient-red'"
         >
           <h3
             :class="{
