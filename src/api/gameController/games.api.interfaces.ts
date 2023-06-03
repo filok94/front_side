@@ -7,7 +7,8 @@ export const GAME_URLS = {
   get_questions: (id: string) => `${GAMES_CONTROLLER}/${id}`,
   calculate: (id: string) => `${GAMES_CONTROLLER}/${id}/calculate`,
   get_results: (id: string) => `${GAMES_CONTROLLER}/${id}/results`,
-  post_create_game: `admin/${GAMES_CONTROLLER}/create`
+  post_create_game: `admin/${GAMES_CONTROLLER}/create`,
+  deleteGame: (id: string) => `admin/${GAMES_CONTROLLER}/${id}`
 } as const
 // eslint-disable-next-line no-redeclare
 export type GAME_URLS = typeof GAME_URLS[keyof typeof GAME_URLS];

@@ -44,7 +44,7 @@ const dynamicClasses = reactive({
 <template>
   <button
     ref="buttonRef"
-    :disabled="props.disable"
+    :disabled="props.disable || props.isLoading"
     :class="dynamicClasses"
     class="v_button"
     @mouseenter="mouseHoverEvent($event.type)"

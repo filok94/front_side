@@ -15,7 +15,10 @@ const props = defineProps<{
     onElement?: 'title' | 'description';
   };
   appearsFrom?: 'left' | 'right' | 'top' | 'bottom' | null;
+  isWithDeleteButton?: boolean
 }>()
+
+const emit = defineEmits<{(ev: 'deleteButtonClicked', voice: boolean): void; }>()
 
 const card: HTMLRef = ref(null)
 const titleRef: HTMLRef = ref(null)
@@ -51,6 +54,9 @@ onMounted(() => {
   }
   }
 })
+const deleteButtonEvent = () => {
+  emit('deleteButtonClicked', true)
+}
 </script>
 
 <template>
@@ -59,13 +65,23 @@ onMounted(() => {
     class="vcard-container"
     :class="{ 'vcard-hover': props.hover?.isHoverable }"
   >
-    <h2
-      v-if="props.title"
-      ref="titleRef"
-      class="vcard-title"
-    >
-      {{ props.title }}
-    </h2>
+    <div class="vcard-header">
+      <h2
+        v-if="props.title"
+        ref="titleRef"
+        class="vcard-title"
+      >
+        {{ props.title }}
+      </h2>
+      <button
+        v-if="props.isWithDeleteButton"
+        class="vcard-delete_button"
+        :purpose="'white'"
+        @click.prevent.stop="deleteButtonEvent"
+      >
+        x
+      </button>
+    </div>
     <img
       v-if="props.image"
       class="vcard-image"
@@ -120,4 +136,29 @@ onMounted(() => {
 .vcard-hover {
   cursor: pointer;
 }
+
+.vcard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+.vcard-delete_button {
+  background: transparent;
+  border: none;
+  width: 10px;
+  color: var(--color-white);
+  font-size: 1.3rem;
+}
+
+.vcard-delete_button:hover {
+  color: var(--color-grey);
+}
+
 </style>

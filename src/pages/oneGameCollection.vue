@@ -1,13 +1,15 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import Loading from '../components/oneLoading.vue'
 import { AnimationFlickeringOnText } from '../Helpers/Animations/GameCollection'
 import { useGamesStore } from '../stores/games_store'
 import { ROUTER_NAMES } from '../router'
 import vCard from '../components/common/vCard.vue'
+import vConfirmModal from '../components/common/vConfirmModal.vue'
 import { HTMLRef } from '../types/testsTypes.interface'
 import vGradient from '../components/common/vGradientText.vue'
+import { deleteGame } from '../api/gameController/games.api'
+import { USER_STORAGE } from '../api/auth/auth.interfaces'
 
 const router = useRouter()
 const gamesStore = useGamesStore()
@@ -24,8 +26,30 @@ const goToTest = (i: number) => {
   }
 }
 
+const isAdmin = JSON.parse(String(localStorage.getItem(USER_STORAGE.is_admin)))
+
 const brokenLetter: HTMLRef = ref(null)
 onMounted(() => AnimationFlickeringOnText(brokenLetter))
+
+const gameToDelete = ref<null | string>(null)
+
+const startDeleting = (gameId: string) => {
+  gameToDelete.value = gameId
+}
+const isLoading = ref(false)
+
+const confirmDeletionOfTheGame = async (isConfirmed: boolean) => {
+  if (isConfirmed && gameToDelete.value) {
+    isLoading.value = true
+    await deleteGame(gameToDelete.value)
+    isLoading.value = false
+    gameToDelete.value = null
+    await gamesStore.getAllGames()
+  } else {
+    gameToDelete.value = null
+  }
+}
+
 </script>
 
 <template>
@@ -34,13 +58,20 @@ onMounted(() => AnimationFlickeringOnText(brokenLetter))
       v-if="gamesList"
       class="games-collection"
     >
+      <v-confirm-modal
+        :is-showing="gameToDelete !== null"
+        :async-disabling="isLoading"
+        @is-confirmed="confirmDeletionOfTheGame($event)"
+      />
       <v-card
         v-for="(game, i) in gamesList"
         :key="i"
         :title="game.title"
         :description="game.description"
         :hover="{ isHoverable: true, onElement: 'description' }"
+        :is-with-delete-button="isAdmin"
         @click.stop="goToTest(i)"
+        @delete-button-clicked="startDeleting(game._id)"
       />
     </div>
     <Loading v-else />

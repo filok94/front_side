@@ -91,4 +91,16 @@ const postCreateGame = async (data: IPostCreateGame): Promise<IResponseGetResult
   }
 }
 
-export { getAllGames, postCreateGame, getResultData, postCalculate, getQuestions }
+const deleteGame = async (gameId: string) => {
+  try {
+    const response = await globalInstance.delete(GAME_URLS.deleteGame(gameId))
+    if (!response) {
+      throw new Error(`results response is ${response}`)
+    }
+    return response.data
+  } catch (e) {
+    // pushToErrorToast()
+  }
+}
+
+export { getAllGames, postCreateGame, getResultData, postCalculate, getQuestions, deleteGame }

@@ -97,7 +97,6 @@ const confirmToClose = (toClose: boolean) => toClose ? destroyModal() : confirmM
   border-radius: var(--border-prime);
   background: var(--color-black);
   min-width: 40vw;
-  min-height: 40vh;
   max-height: 90vh;
   overflow-y: scroll;
   padding: 0;

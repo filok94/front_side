@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
-import navigation from '../components/oneNavigation.vue'
+import navigation from '../components/OneNavigation.vue'
 import { Tab } from '../types/testsTypes.interface'
 import { useGamesStore } from '../stores/games_store'
 import vBasePage from './vBasePage.vue'
@@ -34,7 +34,6 @@ onMounted(async () => {
 
 <template>
   <v-base-page
-    v-if="tabs.find(e=>e.routeName === ROUTER_NAMES.main.admin)"
     :title="tabs.find(e=>e.routeName == route.name)?.name as string"
   >
     <navigation
